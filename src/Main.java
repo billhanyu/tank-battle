@@ -71,13 +71,13 @@ public class Main extends Application {
     	Scene startScene = new Scene(root, SIZE, SIZE);
     	stage.setTitle("Tank Battle");
     	stage.setScene(startScene);
+    	stage.setResizable(false);
     	stage.show();
     }
     
     private void startGame() {
     	// create your own game here
         myGame = new Game();
-        myGame.main = this;
         stage.setTitle(myGame.getTitle());
 
         // attach game to the stage and display it
@@ -86,7 +86,7 @@ public class Main extends Application {
 
         // sets the game's loop
         frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-                                      e -> myGame.step(SECOND_DELAY));
+                                      e -> step(SECOND_DELAY));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
@@ -124,12 +124,29 @@ public class Main extends Application {
     	Scene overScene = new Scene(root, SIZE, SIZE);
     	stage.setScene(overScene);
     }
+    
+    private void step(double elapsedTime) {
+    	switch (Game.status) {
+    		case Wait:
+    			break;
+    		case Play:
+    			break;
+    		case Lost:
+    			gameOver();
+    			return;
+    		case Win:
+    			gameWin();
+    			return;
+    		default:
+    			break;
+    	}
+    	myGame.step(elapsedTime);
+    }
 
     /**
      * Start the program.
      */
     public static void main (String[] args) {
         launch(args);
-        
     }
 }

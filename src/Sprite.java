@@ -58,10 +58,10 @@ public class Sprite {
     }
 
     public void update(double time) {
+    	lastX = positionX;
+        lastY = positionY;
         positionX += velocityX * time;
         positionY += velocityY * time;
-        lastX = positionX;
-        lastY = positionY;
     }
     
     public void lastPosition() {

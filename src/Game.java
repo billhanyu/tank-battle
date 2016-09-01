@@ -14,15 +14,20 @@ import javafx.scene.text.Font;
  * 
  * @author Bill Yu
  */
+
+enum Status {
+	Wait, Play, Lost, Win;
+}
+
 class Game {
     public static final String TITLE = "Fight for Your Home";
+    public static Status status = Status.Wait;
 
     private Scene myScene;
     private GraphicsContext gc;
     private PlayerTank playerTank;
     private Label info;
     private int width, height;
-    public Main main;
     
     public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
     
@@ -37,6 +42,7 @@ class Game {
      * Create the game's scene
      */
     public Scene init (int width, int height) {
+    	status = Status.Play;
     	this.width = width;
     	this.height = height;
     	for (Sprite e: elements) {
@@ -107,7 +113,7 @@ class Game {
     	
     	int i = 0;
     	if (elements.size() == 1) {
-    		main.gameWin();
+    		status = Status.Win;
     	}
     	while (i < elements.size()) {
     		Sprite e = elements.get(i);
@@ -117,7 +123,7 @@ class Game {
     			i++;
     		}
     		else if (e.BITMASK == playerTank.BITMASK) {
-    			main.gameOver();
+    			status = Status.Lost;
     			return;
     		}
     		else {
