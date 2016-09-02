@@ -15,10 +15,13 @@ public class Map1 extends GameMap {
     	water.setPosition(200, 250);
     	Grass grass = new Grass();
     	grass.setPosition(250, 250);
+    	Home home = new Home();
+    	home.setPosition(400, 400);
     	elements.add(stone);
     	elements.add(brick);
     	elements.add(water);
     	elements.add(grass);
+    	elements.add(home);
 	}
 
 }

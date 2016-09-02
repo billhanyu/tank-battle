@@ -16,12 +16,14 @@ import javafx.scene.text.Font;
  */
 
 enum Status {
-	Wait, Play, Lost, Win;
+	Wait, Play, Lost, Win, ToLose;
 }
 
 class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
+    public static long toLoseTime = System.nanoTime();
+    public static final long LOSE_DELAY = 1000000000;
 
     private Scene myScene;
     private GraphicsContext gc;
@@ -126,6 +128,12 @@ class Game {
     		else {
     			elements.remove(i);
     		}
+    	}
+    	
+    	if (status == Status.ToLose 
+    			&& System.nanoTime() - toLoseTime > LOSE_DELAY) {
+    		status = Status.Lost;
+    		return;
     	}
     	
     	detectCollisions();
