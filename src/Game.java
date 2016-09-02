@@ -84,7 +84,10 @@ class Game {
     	
     	Stone stone = new Stone();
     	stone.setPosition(200, 200);
+    	Brick brick = new Brick();
+    	brick.setPosition(250, 200);
     	elements.add(stone);
+    	elements.add(brick);
     	
         root.setTop(info);
         // Create a place to see the shapes
@@ -211,5 +214,5 @@ class Game {
 	public static final int ENEMY_TANK_MASK = 3;
 	public static final int PLAYER_MISSILE_MASK = 6;
 	public static final int ENEMY_MISSILE_MASK = 9;
-	public static final int STONE_MASK = 15;
+	public static final int STABLE_MASK = 15;
 }

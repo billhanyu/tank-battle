@@ -112,7 +112,7 @@ public abstract class Tank extends Sprite {
 		case Game.ENEMY_TANK_MASK:
 			health--;
 			break;
-		case Game.STONE_MASK:
+		case Game.STABLE_MASK:
 			lastPosition();
 			break;
 		default:
