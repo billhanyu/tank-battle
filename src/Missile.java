@@ -35,7 +35,12 @@ public class Missile extends Sprite {
 	}
 	
 	public void handleCollision(Sprite s) {
-		health = 0;
+		if (s instanceof Water || s instanceof Grass) {
+			
+		}
+		else {
+			health = 0;
+		}
 		super.handleCollision(s);
 	}
 }

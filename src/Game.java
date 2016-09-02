@@ -86,8 +86,14 @@ class Game {
     	stone.setPosition(200, 200);
     	Brick brick = new Brick();
     	brick.setPosition(250, 200);
+    	Water water = new Water();
+    	water.setPosition(200, 250);
+    	Grass grass = new Grass();
+    	grass.setPosition(250, 250);
     	elements.add(stone);
     	elements.add(brick);
+    	elements.add(water);
+    	elements.add(grass);
     	
         root.setTop(info);
         // Create a place to see the shapes
@@ -134,6 +140,7 @@ class Game {
     	}
     	
     	detectCollisions();
+    	elements.sort(null);
     	
     	for (Sprite e: elements) {
     		e.render(gc);

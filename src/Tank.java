@@ -113,7 +113,9 @@ public abstract class Tank extends Sprite {
 			health--;
 			break;
 		case Game.STABLE_MASK:
-			lastPosition();
+			if (!(s instanceof Grass)) {
+				lastPosition();
+			}
 			break;
 		default:
 			break;

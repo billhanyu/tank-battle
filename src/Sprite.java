@@ -7,7 +7,7 @@ enum Direction {
 	LEFT, RIGHT, UP, DOWN, NONE;
 }
 
-public class Sprite {
+public class Sprite implements Comparable<Sprite> {
     private Image image;
     protected double positionX;
     protected double positionY;  
@@ -91,4 +91,21 @@ public class Sprite {
     		alive = false;
     	}
     }
+
+	@Override
+	public int compareTo(Sprite o) {
+		if (o instanceof Water) {
+			return 1;
+		}
+		if (o instanceof Grass) {
+			return -1;
+		}
+		if (this instanceof Water) {
+			return -1;
+		}
+		if (this instanceof Grass) {
+			return 1;
+		}
+		return 0;
+	}
 }
