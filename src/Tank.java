@@ -107,22 +107,10 @@ public abstract class Tank extends Sprite {
 	public void handleCollision(Sprite s) {
 		if (BITMASK == s.BITMASK) {
 			lastPosition();
-			return;
 		}
-		switch (s.BITMASK) {
-		case Game.PLAYER_MISSILE_MASK:
-		case Game.PLAYER_TANK_MASK:
-		case Game.ENEMY_MISSILE_MASK:
-		case Game.ENEMY_TANK_MASK:
-			health--;
-			break;
-		case Game.STABLE_MASK:
-			if (!(s instanceof Grass)) {
-				lastPosition();
-			}
-			break;
-		default:
-			break;
+		else if (s.BITMASK == Game.STABLE_MASK
+				&& !(s instanceof Grass)) {
+			lastPosition();
 		}
 		super.handleCollision(s);
 	}

@@ -38,4 +38,12 @@ public class PlayerTank extends Tank {
 		health = 1;
 		setGreen();
 	}
+	
+	public void handleCollision(Sprite s) {
+		if (s.BITMASK == Game.ENEMY_MISSILE_MASK
+				|| s.BITMASK == Game.ENEMY_TANK_MASK) {
+			health--;
+		}
+		super.handleCollision(s);
+	}
 }
