@@ -28,6 +28,7 @@ public class Main extends Application {
     private Game myGame;
     private Stage stage;
     private Button startButton;
+    private Button exitButton;
     private KeyFrame frame;
     private Timeline animation;
 
@@ -42,7 +43,7 @@ public class Main extends Application {
     	
     	buttons.setPadding(new Insets(15, 12, 15, 12));
         buttons.setSpacing(100);
-        buttons.setStyle("-fx-background-color: #336699;");
+        
     	startButton = new Button("Start Game");
     	startButton.setOnAction(new EventHandler<ActionEvent>() {
     		public void handle(ActionEvent event) {
@@ -51,11 +52,18 @@ public class Main extends Application {
     	});
     	startButton.setMaxWidth(100);
     	
+    	exitButton = new Button("Exit");
+    	exitButton.setOnAction(new EventHandler<ActionEvent>() {
+    		public void handle(ActionEvent event) {
+    			stage.close();
+    		}
+    	});
+    	
     	Text text = new Text();
 		text.setFont(new Font(16));
 		text.setWrappingWidth(400);
 		text.setTextAlignment(TextAlignment.CENTER);
-		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nEliminate all enemies as soon as possible");
+		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home");
 		root.getChildren().add(text);
 		
     	buttons.getChildren().addAll(text, startButton);
@@ -63,6 +71,7 @@ public class Main extends Application {
     	
     	Label title = new Label("Tank Battle");
     	title.setFont(new Font(20));
+    	title.setPadding(new Insets(15, 15, 15, 15));
     	title.setTextAlignment(TextAlignment.CENTER);
     	
     	root.setTop(title);
@@ -98,13 +107,15 @@ public class Main extends Application {
     	frame = null;
     	animation.stop();
     	animation = null;
+    	
     	Label indicator = new Label("You Won!");
     	indicator.setFont(new Font(20));
     	startButton.setText("Play Again");
+    	
     	VBox root = new VBox();
-    	root.setSpacing(100);
+    	root.setSpacing(60);
     	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton);
+    	root.getChildren().addAll(indicator, startButton, exitButton);
     	Scene overScene = new Scene(root, SIZE, SIZE);
     	stage.setScene(overScene);
     }
@@ -118,9 +129,9 @@ public class Main extends Application {
     	indicator.setFont(new Font(20));
     	startButton.setText("Play Again");
     	VBox root = new VBox();
-    	root.setSpacing(100);
+    	root.setSpacing(60);
     	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton);
+    	root.getChildren().addAll(indicator, startButton, exitButton);
     	Scene overScene = new Scene(root, SIZE, SIZE);
     	stage.setScene(overScene);
     }

@@ -1,0 +1,21 @@
+Genre:
+Top Down Scrolling Shooter
+
+Name:
+Tank Battle
+
+Back story:
+In the darkest world, only your country stands against killing. Can you help protect your own home?
+
+Goal:
+Protect home from enemy tanks in a limited period of time.
+
+Basic Mechanics:
+Users can use arrow keys or WASD to move the tank and use space to fire a missile.
+
+Levels:
+The levels differ mainly by the maps. In harder levels, the home would be more exposed to enemies and protections such as bricks and stones would be fewer.
+
+Cheats:
+B - becomes immortal for 5 seconds.
+C - eliminate all enemy tanks on the map.
