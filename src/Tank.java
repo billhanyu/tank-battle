@@ -30,6 +30,10 @@ public abstract class Tank extends Sprite {
 		super.update(time);
 	}
 	
+	public void setDirection(Direction dir) {
+		this.direction = dir;
+	}
+	
 	private void setSpeedWithDirection() {
 		switch (direction) {
 		case RIGHT:

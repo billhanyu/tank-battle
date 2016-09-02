@@ -29,6 +29,7 @@ public class Main extends Application {
     private Stage stage;
     private Button startButton;
     private Button exitButton;
+    private Scene startScene;
     private KeyFrame frame;
     private Timeline animation;
 
@@ -38,49 +39,8 @@ public class Main extends Application {
     @Override
     public void start (Stage s) {
     	this.stage = s;
-    	BorderPane root = new BorderPane();
-    	VBox buttons = new VBox();
-    	
-    	buttons.setPadding(new Insets(15, 12, 15, 12));
-        buttons.setSpacing(100);
-        
-    	startButton = new Button("Start Game");
-    	startButton.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			startGame();
-    		}
-    	});
-    	startButton.setMaxWidth(100);
-    	
-    	exitButton = new Button("Exit");
-    	exitButton.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			stage.close();
-    		}
-    	});
-    	
-    	Text text = new Text();
-		text.setFont(new Font(16));
-		text.setWrappingWidth(400);
-		text.setTextAlignment(TextAlignment.CENTER);
-		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home");
-		root.getChildren().add(text);
-		
-    	buttons.getChildren().addAll(text, startButton);
-    	buttons.setAlignment(Pos.CENTER);
-    	
-    	Label title = new Label("Tank Battle");
-    	title.setFont(new Font(20));
-    	title.setPadding(new Insets(15, 15, 15, 15));
-    	title.setTextAlignment(TextAlignment.CENTER);
-    	
-    	root.setTop(title);
-    	root.setCenter(buttons);
-    	BorderPane.setAlignment(title, Pos.CENTER);
-    	Scene startScene = new Scene(root, SIZE, SIZE);
-    	stage.setTitle("Tank Battle");
-    	stage.setScene(startScene);
-    	stage.setResizable(false);
+    	startScene = initStartScene();
+    	configureStage();
     	stage.show();
     }
     
@@ -103,10 +63,7 @@ public class Main extends Application {
     }
     
     public void gameWin() {
-    	myGame = null;
-    	frame = null;
-    	animation.stop();
-    	animation = null;
+    	clearGame();
     	
     	Label indicator = new Label("You Won!");
     	indicator.setFont(new Font(20));
@@ -121,10 +78,8 @@ public class Main extends Application {
     }
     
     public void gameOver() {
-    	myGame = null;
-    	frame = null;
-    	animation.stop();
-    	animation = null;
+    	clearGame();
+    	
     	Label indicator = new Label("Game Over");
     	indicator.setFont(new Font(20));
     	startButton.setText("Play Again");
@@ -138,10 +93,6 @@ public class Main extends Application {
     
     private void step(double elapsedTime) {
     	switch (Game.status) {
-    		case Wait:
-    			break;
-    		case Play:
-    			break;
     		case Lost:
     			gameOver();
     			return;
@@ -152,6 +103,83 @@ public class Main extends Application {
     			break;
     	}
     	myGame.step(elapsedTime);
+    }
+    
+    private Button initStartButton() {
+    	startButton = new Button("Start Game");
+    	startButton.setPrefWidth(100);
+    	startButton.setOnAction(new EventHandler<ActionEvent>() {
+    		public void handle(ActionEvent event) {
+    			startGame();
+    		}
+    	});
+    	return startButton;
+    }
+    
+    private Button initExitButton() {
+    	exitButton = new Button("Exit");
+    	exitButton.setPrefWidth(100);
+    	exitButton.setOnAction(new EventHandler<ActionEvent>() {
+    		public void handle(ActionEvent event) {
+    			stage.close();
+    		}
+    	});
+    	return exitButton;
+    }
+    
+    private VBox initStartViewButtons() {
+    	VBox buttons = new VBox();
+    	
+    	buttons.setPadding(new Insets(15, 12, 15, 12));
+        buttons.setSpacing(100);
+        
+        startButton = initStartButton();
+    	exitButton = initExitButton();
+    	
+    	Text text = new Text();
+		text.setFont(new Font(16));
+		text.setWrappingWidth(400);
+		text.setTextAlignment(TextAlignment.CENTER);
+		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home");
+		
+    	buttons.getChildren().addAll(text, startButton);
+    	buttons.setAlignment(Pos.CENTER);
+    	
+    	return buttons;
+    }
+    
+    private Label initTitle() {
+    	Label title = new Label("Tank Battle");
+    	title.setFont(new Font(20));
+    	title.setPadding(new Insets(15, 15, 15, 15));
+    	title.setTextAlignment(TextAlignment.CENTER);
+    	return title;
+    }
+    
+    private Scene initStartScene() {
+    	BorderPane root = new BorderPane();
+    	
+    	VBox startViewButtons = initStartViewButtons();
+    	Label title = initTitle();
+    	
+    	root.setTop(title);
+    	root.setCenter(startViewButtons);
+    	BorderPane.setAlignment(title, Pos.CENTER);
+    	Scene scn = new Scene(root, SIZE, SIZE);
+    	return scn;
+    }
+    
+    private void configureStage() {
+    	stage.setTitle("Tank Battle");
+    	stage.setScene(startScene);
+    	stage.setResizable(false);
+    }
+    
+    private void clearGame() {
+    	myGame = null;
+    	frame = null;
+    	animation.stop();
+    	animation = null;
     }
 
     /**

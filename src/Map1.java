@@ -12,6 +12,7 @@ public class Map1 extends GameMap {
 		{
 			{0, 0}, {320, 0}, {640, 0}
 		};
+	private static final double SPAWN_POS = 0.01;
 	private static final int[] homePos = {320, 640};
 	private static final int[] playerPos = {240, 640};
 
@@ -36,7 +37,22 @@ public class Map1 extends GameMap {
 
 	@Override
 	protected void spawnTank() {
-		
+		for (int[] pos: tankPos) {
+			if (Math.random() < SPAWN_POS) {
+				EnemyTank tank = new EnemyTank();
+				tank.setPosition(pos[0], pos[1]);
+				boolean valid = true;
+				for (Sprite e: elements) {
+					if (tank.intersects(e)) {
+						valid = false;
+					}
+				}
+				if (valid) {
+					tank.setDirection(Direction.DOWN);
+					elements.add(tank);
+				}
+			}
+		}
 	}
 
 	@Override

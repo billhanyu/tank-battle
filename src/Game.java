@@ -23,7 +23,7 @@ class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
     public static long toLoseTime = System.nanoTime();
-    public static final long LOSE_DELAY = 1000000000;
+    public static final long LOSE_DELAY = 500000000;
 
     private Scene myScene;
     private GraphicsContext gc;
@@ -68,10 +68,7 @@ class Game {
     	playerTank = map.getPlayerTank();
     	
         // Create a place to see the shapes
-        Canvas canvas = new Canvas(width, height);
-        canvas.setStyle("-fx-background-color: black;");
-        root.setCenter(canvas);
-        gc = canvas.getGraphicsContext2D();
+        gc = initGraphicsContext(root);
         
         myScene = new Scene(root, width, height, Color.BLACK);
         // Respond to input
@@ -111,12 +108,9 @@ class Game {
     	}
     	
     	detectCollisions();
-    	elements.sort(null);
-    	
-    	for (Sprite e: elements) {
-    		e.render(gc);
-    	}
+    	renderElements();
     	updateHud();
+    	map.spawnTank();
     }
 
     private void handleKeyInput (KeyCode code) {
@@ -186,6 +180,20 @@ class Game {
     		if (e.BITMASK == ENEMY_TANK_MASK) count++;
     	}
     	info.setText(String.format("%d enemies left.", count));
+    }
+    
+    private GraphicsContext initGraphicsContext(BorderPane root) {
+    	Canvas canvas = new Canvas(width, height);
+        canvas.setStyle("-fx-background-color: black;");
+        root.setCenter(canvas);
+        return canvas.getGraphicsContext2D();
+    }
+    
+    private void renderElements() {
+    	elements.sort(null);
+    	for (Sprite e: elements) {
+    		e.render(gc);
+    	}
     }
     
     public static final int PLAYER_TANK_MASK = 1;
