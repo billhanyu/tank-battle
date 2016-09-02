@@ -6,10 +6,7 @@ public class PlayerTank extends Tank {
 	
 	public PlayerTank() {
 		super();
-		TANK_UP = GREEN_TANK_UP;
-		TANK_DOWN = GREEN_TANK_DOWN;
-		TANK_LEFT = GREEN_TANK_LEFT;
-		TANK_RIGHT = GREEN_TANK_RIGHT;
+		setGreen();
 		BITMASK = Tank.PLAYER_TANK_MASK;
 	}
 	
@@ -31,19 +28,13 @@ public class PlayerTank extends Tank {
 	}
 	
 	public void buffImmortal() {
+		setRed();
 		health = Integer.MAX_VALUE;
-		TANK_UP = RED_TANK_UP;
-		TANK_DOWN = RED_TANK_DOWN;
-		TANK_LEFT = RED_TANK_LEFT;
-		TANK_RIGHT = RED_TANK_RIGHT;
 		immortalStartTime = System.nanoTime();
 	}
 	
 	public void debuffImmortal() {
 		health = 1;
-		TANK_UP = GREEN_TANK_UP;
-		TANK_DOWN = GREEN_TANK_DOWN;
-		TANK_LEFT = GREEN_TANK_LEFT;
-		TANK_RIGHT = GREEN_TANK_RIGHT;
+		setGreen();
 	}
 }

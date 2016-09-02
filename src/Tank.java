@@ -4,16 +4,17 @@ public abstract class Tank extends Sprite {
 	private static final long MISSILE_DELAY = 500000000;
 	
 	protected int SPEED = 250;
-	protected String TANK_UP = WHITE_TANK_UP;
-	protected String TANK_DOWN = WHITE_TANK_DOWN;
-	protected String TANK_LEFT = WHITE_TANK_LEFT;
-	protected String TANK_RIGHT = WHITE_TANK_RIGHT;
+	protected String TANK_UP;
+	protected String TANK_DOWN;
+	protected String TANK_LEFT;
+	protected String TANK_RIGHT;
 	
 	protected Direction direction = Direction.UP;
 	protected Direction missileDirection = direction;
 	private long fireTime = System.nanoTime();
 	
 	public Tank() {
+		setWhite();
 		setImage(TANK_UP);
 		BITMASK = ENEMY_TANK_MASK; //default, enemy tanks
 	}
@@ -117,6 +118,34 @@ public abstract class Tank extends Sprite {
 	}
 	
 	public abstract int getMissileMask();
+	
+	public void setGreen() {
+		TANK_UP = GREEN_TANK_UP;
+		TANK_DOWN = GREEN_TANK_DOWN;
+		TANK_LEFT = GREEN_TANK_LEFT;
+		TANK_RIGHT = GREEN_TANK_RIGHT;
+	}
+	
+	public void setRed() {
+		TANK_UP = RED_TANK_UP;
+		TANK_DOWN = RED_TANK_DOWN;
+		TANK_LEFT = RED_TANK_LEFT;
+		TANK_RIGHT = RED_TANK_RIGHT;
+	}
+	
+	public void setYellow() {
+		TANK_UP = YELLOW_TANK_UP;
+		TANK_DOWN = YELLOW_TANK_DOWN;
+		TANK_LEFT = YELLOW_TANK_LEFT;
+		TANK_RIGHT = YELLOW_TANK_RIGHT;
+	}
+	
+	public void setWhite() {
+		TANK_UP = WHITE_TANK_UP;
+		TANK_DOWN = WHITE_TANK_DOWN;
+		TANK_LEFT = WHITE_TANK_LEFT;
+		TANK_RIGHT = WHITE_TANK_RIGHT;
+	}
 	
 	//constants
 	protected static final String WHITE_TANK_UP = "white-tank-up.gif";
