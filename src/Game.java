@@ -45,9 +45,6 @@ class Game {
     	status = Status.Play;
     	this.width = width;
     	this.height = height;
-    	for (Sprite e: elements) {
-    		e.deinit();
-    	}
     	elements = new ArrayList<Sprite>();
     	
     	BorderPane root = new BorderPane();
@@ -85,6 +82,10 @@ class Game {
     	elements.add(playerTank);
     	elements.addAll(enemyTanks);
     	
+    	Stone stone = new Stone();
+    	stone.setPosition(200, 200);
+    	elements.add(stone);
+    	
         root.setTop(info);
         // Create a place to see the shapes
         Canvas canvas = new Canvas(width, height);
@@ -109,7 +110,6 @@ class Game {
         // check for collisions
         // with shapes, can check precisely
     	gc.clearRect(0, 0, width, height);
-    	detectCollisions();
     	
     	int i = 0;
     	if (elements.size() == 1) {
@@ -119,7 +119,6 @@ class Game {
     		Sprite e = elements.get(i);
     		if (e.alive) {
     			e.update(elapsedTime);
-    			e.render(gc);
     			i++;
     		}
     		else if (e.BITMASK == playerTank.BITMASK) {
@@ -127,9 +126,14 @@ class Game {
     			return;
     		}
     		else {
-    			e.deinit();
     			elements.remove(i);
     		}
+    	}
+    	
+    	detectCollisions();
+    	
+    	for (Sprite e: elements) {
+    		e.render(gc);
     	}
     	updateHud();
     }
@@ -187,7 +191,7 @@ class Game {
     public void clearEnemies() {
     	for (int i = 0; i < elements.size(); i++) {
     		Sprite e = elements.get(i);
-    		if (e.BITMASK == Tank.ENEMY_TANK_MASK) {
+    		if (e.BITMASK == ENEMY_TANK_MASK) {
     			e.alive = false;
     			elements.remove(i);
     			i--;
@@ -198,8 +202,14 @@ class Game {
     private void updateHud() {
     	int count = 0;
     	for (Sprite e: elements) {
-    		if (e.BITMASK == Tank.ENEMY_TANK_MASK) count++;
+    		if (e.BITMASK == ENEMY_TANK_MASK) count++;
     	}
     	info.setText(String.format("%d enemies left.", count));
     }
+    
+    public static final int PLAYER_TANK_MASK = 1;
+	public static final int ENEMY_TANK_MASK = 3;
+	public static final int PLAYER_MISSILE_MASK = 6;
+	public static final int ENEMY_MISSILE_MASK = 9;
+	public static final int STONE_MASK = 15;
 }

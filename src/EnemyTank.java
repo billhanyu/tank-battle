@@ -19,7 +19,7 @@ public class EnemyTank extends Tank {
 	}
 	
 	public int getMissileMask() {
-		return Tank.ENEMY_MISSILE_MASK;
+		return Game.ENEMY_MISSILE_MASK;
 	}
 	
 	private void attemptChangeDirection() {

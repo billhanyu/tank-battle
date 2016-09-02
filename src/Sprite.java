@@ -38,7 +38,7 @@ public class Sprite {
     }
 
     public void setImage(String filename) {
-        Image i = new Image(filename);
+        Image i = new Image(getClass().getClassLoader().getResourceAsStream(filename));
         setImage(i);
     }
 
@@ -81,34 +81,6 @@ public class Sprite {
         return s.getBoundary().intersects( this.getBoundary() );
     }
     
-    public Direction getIntersectionDirection(Sprite s) {
-    	if (!intersects(s)) return Direction.NONE;
-    	Rectangle2D self = this.getBoundary();
-    	Rectangle2D other = s.getBoundary();
-    	double selfLeft = self.getMinX();
-    	double selfRight = self.getMaxX();
-    	double selfUp = self.getMinY();
-    	double selfDown = self.getMaxY();
-    	double otherLeft = other.getMinX();
-    	double otherRight = other.getMaxX();
-    	double otherUp = other.getMinY();
-    	double otherDown = other.getMaxY();
-    	
-    	if (closeEnough(selfLeft, otherRight)) {
-    		return Direction.LEFT;
-    	}
-    	else if (closeEnough(selfRight, otherLeft)) {
-    		return Direction.RIGHT;
-    	}
-    	else if (closeEnough(selfUp, otherDown)) {
-    		return Direction.UP;
-    	}
-    	else if (closeEnough(selfDown, otherUp)) {
-    		return Direction.DOWN;
-    	}
-    	return Direction.NONE;
-    }
-    
     public String toString() {
         return " Position: [" + positionX + "," + positionY + "]" 
         + " Velocity: [" + velocityX + "," + velocityY + "]";
@@ -118,13 +90,5 @@ public class Sprite {
     	if (health <= 0) {
     		alive = false;
     	}
-    }
-    
-    public void deinit() {
-    }
-    
-    public static boolean closeEnough(double num1, double num2) {
-    	if (Math.abs(num1 - num2) < 1.5) return true;
-    	return false;
     }
 }

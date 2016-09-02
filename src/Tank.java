@@ -16,7 +16,7 @@ public abstract class Tank extends Sprite {
 	public Tank() {
 		setWhite();
 		setImage(TANK_UP);
-		BITMASK = ENEMY_TANK_MASK; //default, enemy tanks
+		BITMASK = Game.ENEMY_TANK_MASK; //default, enemy tanks
 	}
 	
 	public Tank(int mask) {
@@ -101,14 +101,18 @@ public abstract class Tank extends Sprite {
 	}
 	
 	public void handleCollision(Sprite s) {
+		if (BITMASK == s.BITMASK) {
+			lastPosition();
+			return;
+		}
 		switch (s.BITMASK) {
-		case Tank.PLAYER_MISSILE_MASK:
-		case Tank.PLAYER_TANK_MASK:
-		case Tank.ENEMY_MISSILE_MASK:
-		case Tank.ENEMY_TANK_MASK:
+		case Game.PLAYER_MISSILE_MASK:
+		case Game.PLAYER_TANK_MASK:
+		case Game.ENEMY_MISSILE_MASK:
+		case Game.ENEMY_TANK_MASK:
 			health--;
 			break;
-		case 15:
+		case Game.STONE_MASK:
 			lastPosition();
 			break;
 		default:
@@ -164,9 +168,4 @@ public abstract class Tank extends Sprite {
 	protected static final String YELLOW_TANK_DOWN = "yellow-tank-down.gif";
 	protected static final String YELLOW_TANK_LEFT = "yellow-tank-left.gif";
 	protected static final String YELLOW_TANK_RIGHT = "yellow-tank-right.gif";
-	
-	protected static final int PLAYER_TANK_MASK = 1;
-	protected static final int ENEMY_TANK_MASK = 3;
-	protected static final int PLAYER_MISSILE_MASK = 6;
-	protected static final int ENEMY_MISSILE_MASK = 9;
 }

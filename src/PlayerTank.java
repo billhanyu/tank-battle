@@ -7,7 +7,7 @@ public class PlayerTank extends Tank {
 	public PlayerTank() {
 		super();
 		setGreen();
-		BITMASK = Tank.PLAYER_TANK_MASK;
+		BITMASK = Game.PLAYER_TANK_MASK;
 	}
 	
 	public void update(double time) {
@@ -24,7 +24,7 @@ public class PlayerTank extends Tank {
 	}
 	
 	public int getMissileMask() {
-		return Tank.PLAYER_MISSILE_MASK;
+		return Game.PLAYER_MISSILE_MASK;
 	}
 	
 	public void buffImmortal() {
