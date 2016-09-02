@@ -56,6 +56,14 @@ public class Sprite implements Comparable<Sprite> {
         velocityX += x;
         velocityY += y;
     }
+    
+    public double getWidth() {
+    	return width;
+    }
+    
+    public double getHeight() {
+    	return height;
+    }
 
     public void update(double time) {
     	lastX = positionX;
