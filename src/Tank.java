@@ -1,10 +1,7 @@
-import java.util.Timer;
-import java.util.TimerTask;
 
 public abstract class Tank extends Sprite {
 	
 	private static final long MISSILE_DELAY = 500000000;
-	private static final int IMMORTAL_DELAY = 5;
 	
 	protected int SPEED = 250;
 	protected String TANK_UP = WHITE_TANK_UP;
@@ -14,13 +11,9 @@ public abstract class Tank extends Sprite {
 	
 	protected Direction direction = Direction.UP;
 	protected Direction missileDirection = direction;
-	protected Direction collisionDirection = Direction.NONE;
 	private long fireTime = System.nanoTime();
 	
-	private Timer immortalTimer;
-	
 	public Tank() {
-		immortalTimer = new Timer();
 		setImage(TANK_UP);
 		BITMASK = ENEMY_TANK_MASK; //default, enemy tanks
 	}
@@ -31,28 +24,37 @@ public abstract class Tank extends Sprite {
 	}
 	
 	public void update(double time) {
+		setSpeedWithDirection();
+		setImageWithDirection();
+		super.update(time);
+	}
+	
+	private void setSpeedWithDirection() {
 		switch (direction) {
-			case RIGHT:
-				velocityX = SPEED;
-				velocityY = 0;
-				break;
-			case LEFT:
-				velocityX = -SPEED;
-				velocityY = 0;
-				break;
-			case UP:
-				velocityX = 0;
-				velocityY = -SPEED;
-				break;
-			case DOWN:
-				velocityX = 0;
-				velocityY = SPEED;
-				break;
-			default:
-				velocityX = 0;
-				velocityY = 0;
-				break;
+		case RIGHT:
+			velocityX = SPEED;
+			velocityY = 0;
+			break;
+		case LEFT:
+			velocityX = -SPEED;
+			velocityY = 0;
+			break;
+		case UP:
+			velocityX = 0;
+			velocityY = -SPEED;
+			break;
+		case DOWN:
+			velocityX = 0;
+			velocityY = SPEED;
+			break;
+		default:
+			velocityX = 0;
+			velocityY = 0;
+			break;
 		}
+	}
+	
+	private void setImageWithDirection() {
 		switch (missileDirection) {
 		case RIGHT:
 			setImage(TANK_RIGHT);
@@ -69,7 +71,6 @@ public abstract class Tank extends Sprite {
 		default:
 			break;
 		}
-		super.update(time);
 	}
 	
 	public Missile fireMissile() {
@@ -94,14 +95,11 @@ public abstract class Tank extends Sprite {
 				break;
 		}
 		fireTime = time;
+		if (missile != null) Game.elements.add(missile);
 		return missile;
 	}
 	
 	public void handleCollision(Sprite s) {
-//		if (BITMASK == s.BITMASK) {
-//			lastPosition();
-//			return;
-//		}
 		switch (s.BITMASK) {
 		case Tank.PLAYER_MISSILE_MASK:
 		case Tank.PLAYER_TANK_MASK:
@@ -116,36 +114,6 @@ public abstract class Tank extends Sprite {
 			break;
 		}
 		super.handleCollision(s);
-	}
-	
-	public void buffImmortal() {
-		cancelBuff();
-		immortalTimer.cancel();
-		immortalTimer.purge();
-		immortalTimer = new Timer();
-		health = Integer.MAX_VALUE;
-		TANK_UP = RED_TANK_UP;
-		TANK_DOWN = RED_TANK_DOWN;
-		TANK_LEFT = RED_TANK_LEFT;
-		TANK_RIGHT = RED_TANK_RIGHT;
-		TimerTask unbuff = new TimerTask() {
-			public void run() {
-				cancelBuff();
-			}
-		};
-		immortalTimer.schedule(unbuff, IMMORTAL_DELAY * 1000);
-	}
-	
-	public void cancelBuff() {
-		health = 1;
-		TANK_UP = WHITE_TANK_UP;
-		TANK_DOWN = WHITE_TANK_DOWN;
-		TANK_LEFT = WHITE_TANK_LEFT;
-		TANK_RIGHT = WHITE_TANK_RIGHT;
-	}
-	
-	public boolean isCollisionDirection(Direction dir) {
-		return (collisionDirection != Direction.NONE && collisionDirection == dir);
 	}
 	
 	public abstract int getMissileMask();

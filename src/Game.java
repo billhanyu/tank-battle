@@ -136,9 +136,7 @@ class Game {
 
     private void handleKeyInput (KeyCode code) {
     	if (code == KeyCode.SPACE) {
-    		Missile missile = playerTank.fireMissile();
-    		if (missile != null)
-    			elements.add(missile);
+    		playerTank.fireMissile();
     		return;
     	}
     	switch (code) {
