@@ -30,6 +30,10 @@ class Game {
     private PlayerTank playerTank;
     private Label info;
     private int width, height;
+    private GameMap map;
+    
+    private static final long GAME_TIME = 30000000000L;
+    private static long startTime = System.nanoTime();
     
     public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
     
@@ -48,6 +52,7 @@ class Game {
     	this.width = width;
     	this.height = height;
     	elements = new ArrayList<Sprite>();
+    	startTime = System.nanoTime();
     	
     	BorderPane root = new BorderPane();
     	root.setStyle("-fx-background-color: black;");
@@ -57,35 +62,10 @@ class Game {
     	info.setTextFill(Color.WHITE);
     	BorderPane.setAlignment(info, Pos.CENTER);
     	
-    	playerTank = new PlayerTank();
-    	ArrayList<Tank> enemyTanks = new ArrayList<Tank>();
-    	for (int i = 0; i < 5; i++) {
-    		double x = Math.random() * width;
-    		double y = Math.random() * height;
-    		EnemyTank enemy = new EnemyTank();
-    		enemy.setPosition(x, y);
-    		
-    		boolean valid = true;
-    		if (enemy.intersects(playerTank)) {
-    			valid = false;
-    		}
-    		for (Tank tank: enemyTanks) {
-    			if (enemy.intersects(tank)) {
-    				valid = false;
-    			}
-    		}
-    		if (!valid) {
-    			i--;
-    			continue;
-    		}
-    		enemyTanks.add(enemy);
-    	}
-    	
-    	elements.add(playerTank);
-    	elements.addAll(enemyTanks);
-    	
-    	GameMap map = new Map1(width, height);
+    	map = new Map1(width, height);
     	map.init(elements);
+    	
+    	playerTank = map.getPlayerTank();
     	
         // Create a place to see the shapes
         Canvas canvas = new Canvas(width, height);
@@ -101,39 +81,33 @@ class Game {
     }
 
     /**
-     * Change properties of shapes to animate them
-     * 
-     * Note, there are more sophisticated ways to animate shapes,
-     * but these simple ways work too.
+     * game step
      */
     public void step (double elapsedTime) {
-        // check for collisions
-        // with shapes, can check precisely
     	gc.clearRect(0, 0, width, height);
     	
-    	int i = 0;
-    	if (elements.size() == 1) {
+    	if (System.nanoTime() - startTime > GAME_TIME) {
     		status = Status.Win;
     	}
+    	if (status == Status.ToLose 
+    			&& System.nanoTime() - toLoseTime > LOSE_DELAY) {
+    		status = Status.Lost;
+    		return;
+    	}
+    	
+    	int i = 0;
     	while (i < elements.size()) {
     		Sprite e = elements.get(i);
     		if (e.alive) {
     			e.update(elapsedTime);
     			i++;
     		}
-    		else if (e.BITMASK == playerTank.BITMASK) {
-    			status = Status.Lost;
-    			return;
-    		}
     		else {
     			elements.remove(i);
+    			if (e.BITMASK == playerTank.BITMASK) {
+        			playerTank = map.revivePlayerTank();
+        		}
     		}
-    	}
-    	
-    	if (status == Status.ToLose 
-    			&& System.nanoTime() - toLoseTime > LOSE_DELAY) {
-    		status = Status.Lost;
-    		return;
     	}
     	
     	detectCollisions();

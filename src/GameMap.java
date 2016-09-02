@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public abstract class GameMap {
 	private int width, height;
 	protected ArrayList<Sprite> elements;
+	protected PlayerTank playerTank;
 	
 	public GameMap(int width, int height) {
 		this.width = width;
@@ -43,6 +44,13 @@ public abstract class GameMap {
 		elements.add(padding);
 	}
 	
-	protected void createMap() {
+	protected abstract void createMap();
+	
+	protected abstract void spawnTank();
+	
+	protected PlayerTank getPlayerTank() {
+		return playerTank;
 	}
+	
+	protected abstract PlayerTank revivePlayerTank();
 }

@@ -8,6 +8,7 @@ public class PlayerTank extends Tank {
 		super();
 		setGreen();
 		BITMASK = Game.PLAYER_TANK_MASK;
+		buffImmortal();
 	}
 	
 	public void update(double time) {
