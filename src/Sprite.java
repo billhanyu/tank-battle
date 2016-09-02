@@ -51,11 +51,6 @@ public class Sprite implements Comparable<Sprite> {
         velocityX = x;
         velocityY = y;
     }
-
-    public void addVelocity(double x, double y) {
-        velocityX += x;
-        velocityY += y;
-    }
     
     public double getWidth() {
     	return width;
@@ -78,20 +73,15 @@ public class Sprite implements Comparable<Sprite> {
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage( image, positionX, positionY );
+        gc.drawImage(image, positionX, positionY);
     }
 
-    public Rectangle2D getBoundary() {
+    public Rectangle2D getRect() {
         return new Rectangle2D(positionX,positionY,width,height);
     }
 
     public boolean intersects(Sprite s) {
-        return s.getBoundary().intersects( this.getBoundary() );
-    }
-    
-    public String toString() {
-        return " Position: [" + positionX + "," + positionY + "]" 
-        + " Velocity: [" + velocityX + "," + velocityY + "]";
+        return s.getRect().intersects(this.getRect());
     }
     
     public void handleCollision(Sprite s) {
