@@ -27,9 +27,6 @@ public class Main extends Application {
 
     private Game myGame;
     private Stage stage;
-    private Button startButton;
-    private Button exitButton;
-    private Scene startScene;
     private KeyFrame frame;
     private Timeline animation;
 
@@ -39,12 +36,12 @@ public class Main extends Application {
     @Override
     public void start (Stage s) {
     	this.stage = s;
-    	startScene = initStartScene();
-    	configureStage();
+    	Scene startScene = initStartScene();
+    	configureStage(startScene);
     	stage.show();
     }
     
-    private void startGame() {
+    private void gameStart() {
     	// create your own game here
         myGame = new Game();
         stage.setTitle(myGame.getTitle());
@@ -64,30 +61,13 @@ public class Main extends Application {
     
     public void gameWin() {
     	clearGame();
-    	
-    	Label indicator = new Label("You Won!");
-    	indicator.setFont(new Font(20));
-    	startButton.setText("Play Again");
-    	
-    	VBox root = new VBox();
-    	root.setSpacing(60);
-    	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton, exitButton);
-    	Scene overScene = new Scene(root, SIZE, SIZE);
-    	stage.setScene(overScene);
+    	Scene winScene = initWinScene();
+    	stage.setScene(winScene);
     }
     
     public void gameOver() {
     	clearGame();
-    	
-    	Label indicator = new Label("Game Over");
-    	indicator.setFont(new Font(20));
-    	startButton.setText("Play Again");
-    	VBox root = new VBox();
-    	root.setSpacing(60);
-    	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton, exitButton);
-    	Scene overScene = new Scene(root, SIZE, SIZE);
+    	Scene overScene = initOverScene();
     	stage.setScene(overScene);
     }
     
@@ -106,18 +86,18 @@ public class Main extends Application {
     }
     
     private Button initStartButton() {
-    	startButton = new Button("Start Game");
+    	Button startButton = new Button("Start Game");
     	startButton.setPrefWidth(100);
     	startButton.setOnAction(new EventHandler<ActionEvent>() {
     		public void handle(ActionEvent event) {
-    			startGame();
+    			gameStart();
     		}
     	});
     	return startButton;
     }
     
     private Button initExitButton() {
-    	exitButton = new Button("Exit");
+    	Button exitButton = new Button("Exit");
     	exitButton.setPrefWidth(100);
     	exitButton.setOnAction(new EventHandler<ActionEvent>() {
     		public void handle(ActionEvent event) {
@@ -133,8 +113,7 @@ public class Main extends Application {
     	buttons.setPadding(new Insets(15, 12, 15, 12));
         buttons.setSpacing(100);
         
-        startButton = initStartButton();
-    	exitButton = initExitButton();
+        Button startButton = initStartButton();
     	
     	Text text = new Text();
 		text.setFont(new Font(16));
@@ -169,7 +148,36 @@ public class Main extends Application {
     	return scn;
     }
     
-    private void configureStage() {
+    private Scene initOverScene() {
+    	Label indicator = new Label("Game Over");
+    	indicator.setFont(new Font(20));
+    	Button startButton = initStartButton();
+    	startButton.setText("Play Again");
+    	Button exitButton = initExitButton();
+    	VBox root = new VBox();
+    	root.setSpacing(60);
+    	root.setAlignment(Pos.CENTER);
+    	root.getChildren().addAll(indicator, startButton, exitButton);
+    	Scene overScene = new Scene(root, SIZE, SIZE);
+    	return overScene;
+    }
+    
+    private Scene initWinScene() {
+    	Label indicator = new Label("You Won!");
+    	indicator.setFont(new Font(20));
+    	Button startButton = initStartButton();
+    	startButton.setText("Play Again");
+    	Button exitButton = initExitButton();
+    	
+    	VBox root = new VBox();
+    	root.setSpacing(60);
+    	root.setAlignment(Pos.CENTER);
+    	root.getChildren().addAll(indicator, startButton, exitButton);
+    	Scene winScene = new Scene(root, SIZE, SIZE);
+    	return winScene;
+    }
+    
+    private void configureStage(Scene startScene) {
     	stage.setTitle("Tank Battle");
     	stage.setScene(startScene);
     	stage.setResizable(false);
