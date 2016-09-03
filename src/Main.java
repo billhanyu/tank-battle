@@ -140,7 +140,7 @@ public class Main extends Application {
 		text.setFont(new Font(16));
 		text.setWrappingWidth(400);
 		text.setTextAlignment(TextAlignment.CENTER);
-		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home");
+		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home and destroy enemies");
 		
     	buttons.getChildren().addAll(text, startButton);
     	buttons.setAlignment(Pos.CENTER);

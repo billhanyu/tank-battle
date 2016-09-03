@@ -1,18 +1,29 @@
 
 public class Map1 extends GameMap {
 	
-	private static final int[][] brickPos = 
-		{
-			{280, 600}, {300, 600}, {320, 600}, {340, 600}, {360, 600}, {380, 600},
-			{280, 620}, {300, 620}, {320, 620}, {340, 620}, {360, 620}, {380, 620},
-			{280, 640}, {300, 640}, {360, 640}, {380, 640},
-			{280, 660}, {300, 660}, {360, 660}, {380, 660}
-		};
+	//x, y, width, height
 	private static final int[][] tankPos = 
 		{
 			{0, 0}, {320, 0}, {640, 0}
 		};
-	private static final double SPAWN_POS = 0.01;
+	private static final int[][] brickPos = 
+		{
+			{280, 600, 120, 40}, {280, 640, 40, 40}, {360, 640, 40, 40},//home
+			{60, 320, 40, 180}, {160, 360, 40, 140}, {580, 320, 40, 180}, {480, 360, 40, 140}
+		};
+	private static final int[][] stonePos = 
+		{
+			{200, 400, 40, 20}, {440, 400, 40, 20}
+		};
+	private static final int[][] waterPos = 
+		{
+			{160, 160, 40, 120}, {480, 160, 40, 120}
+		};
+	private static final int[][] grassPos =
+		{
+			{200, 160, 280, 60}
+		};
+	private static final double SPAWN_POS = 0.005;
 	private static final int[] homePos = {320, 640};
 	private static final int[] playerPos = {240, 640};
 
@@ -22,10 +33,60 @@ public class Map1 extends GameMap {
 	
 	@Override
 	protected void createMap() {
-		for (int[] oneBrickPos: brickPos) {
-			Brick brick = new Brick();
-			brick.setPosition(oneBrickPos[0], oneBrickPos[1]);
-			elements.add(brick);
+		for (int[] chunk: brickPos) {
+			int x = chunk[0];
+			int y = chunk[1];
+			int chunkWidth = chunk[2];
+			int chunkHeight = chunk[3];
+			for (int p = x; p <= x + chunkWidth - unitSize; p += unitSize) {
+				for (int q = y; q <= y + chunkHeight - unitSize; q += unitSize) {
+					Brick brick = new Brick();
+					brick.setPosition(p, q);
+					elements.add(brick);
+				}
+			}
+		}
+		
+		for (int[] chunk: stonePos) {
+			int x = chunk[0];
+			int y = chunk[1];
+			int chunkWidth = chunk[2];
+			int chunkHeight = chunk[3];
+			for (int p = x; p <= x + chunkWidth - unitSize; p += unitSize) {
+				for (int q = y; q <= y + chunkHeight - unitSize; q += unitSize) {
+					Stone st = new Stone();
+					st.setPosition(p, q);
+					elements.add(st);
+				}
+			}
+		}
+		
+		for (int[] chunk: waterPos) {
+			int x = chunk[0];
+			int y = chunk[1];
+			int chunkWidth = chunk[2];
+			int chunkHeight = chunk[3];
+			for (int p = x; p <= x + chunkWidth - unitSize; p += unitSize) {
+				for (int q = y; q <= y + chunkHeight - unitSize; q += unitSize) {
+					Water brick = new Water();
+					brick.setPosition(p, q);
+					elements.add(brick);
+				}
+			}
+		}
+		
+		for (int[] chunk: grassPos) {
+			int x = chunk[0];
+			int y = chunk[1];
+			int chunkWidth = chunk[2];
+			int chunkHeight = chunk[3];
+			for (int p = x; p <= x + chunkWidth - unitSize; p += unitSize) {
+				for (int q = y; q <= y + chunkHeight - unitSize; q += unitSize) {
+					Grass brick = new Grass();
+					brick.setPosition(p, q);
+					elements.add(brick);
+				}
+			}
 		}
 		
     	Home home = new Home();
