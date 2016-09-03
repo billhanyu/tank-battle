@@ -22,8 +22,12 @@ enum Status {
 class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
+    
     public static long toLoseTime = System.nanoTime();
     public static final long LOSE_DELAY = 500000000;
+    
+    public static long deadTime = System.nanoTime();
+    public static final long DIE_DELAY = 1000000000L;
 
     private Scene myScene;
     private GraphicsContext gc;
@@ -103,6 +107,7 @@ class Game {
     			elements.remove(i);
     			if (e.BITMASK == playerTank.BITMASK) {
         			playerTank = map.revivePlayerTank();
+        			deadTime = System.nanoTime();
         		}
     		}
     	}
@@ -114,6 +119,9 @@ class Game {
     }
 
     private void handleKeyInput (KeyCode code) {
+    	if (System.nanoTime() - deadTime < DIE_DELAY) {
+    		return;
+    	}
     	if (code == KeyCode.SPACE) {
     		playerTank.fireMissile();
     		return;
