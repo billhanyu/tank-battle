@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public abstract class GameMap {
 	private int width, height;
+	protected static final int unitSize = 20;
 	protected ArrayList<Sprite> elements;
 	protected PlayerTank playerTank;
 	
@@ -17,23 +18,21 @@ public abstract class GameMap {
 	}
 	
 	private void pad() {
-		Stone stone = new Stone();
-		double size = stone.getWidth();
 		double x = 0, y = 0;
-		x = -size;
-		for (y = 0; y <= height; y += size) {
+		x = -unitSize;
+		for (y = 0; y <= height; y += unitSize) {
 			addPadding(x, y);
 		}
 		y = height;
-		for (x = 0; x <= width; x += size) {
+		for (x = 0; x <= width; x += unitSize) {
 			addPadding(x, y);
 		}
 		x = width;
-		for (y = 0; y <= height; y+= size) {
+		for (y = 0; y <= height; y+= unitSize) {
 			addPadding(x, y);
 		}
-		y = -size;
-		for (x = 0; x <= width; x += size) {
+		y = -unitSize;
+		for (x = 0; x <= width; x += unitSize) {
 			addPadding(x, y);
 		}
 	}
