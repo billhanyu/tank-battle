@@ -9,8 +9,7 @@ public class Home extends Stable {
 	@Override
 	public void handleCollision(Sprite s) {
 		if (s instanceof Missile) {
-			Game.status = Status.ToLose;
-			Game.toLoseTime = System.nanoTime();
+			Game.setToLose();
 			imageFile = "nohome.gif";
 			setImage(imageFile);
 		}

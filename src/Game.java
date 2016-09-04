@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * Separate the game code from some of the boilerplate code.
@@ -23,16 +23,18 @@ class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
     
-    public static long toLoseTime = System.nanoTime();
-    public static final long LOSE_DELAY = 500000000;
+    private static long toLoseTime = System.nanoTime();
+    private static final long LOSE_DELAY = 500000000;
     
     public static long deadTime = System.nanoTime();
-    public static final long DIE_DELAY = 1000000000L;
+    private static final long DIE_DELAY = 1000000000L;
+    private int lives;
+    private static final int INITIAL_LIVES = 3;
 
     private Scene myScene;
     private GraphicsContext gc;
     private PlayerTank playerTank;
-    private Label info;
+    private Text info;
     private int width, height;
     private GameMap map;
     
@@ -57,14 +59,16 @@ class Game {
     	this.height = height;
     	elements = new ArrayList<Sprite>();
     	startTime = System.nanoTime();
+    	lives = INITIAL_LIVES;
     	
     	BorderPane root = new BorderPane();
     	root.setStyle("-fx-background-color: black;");
     	
-    	info = new Label("This is fun.");
+    	info = new Text("This is fun.");
     	info.setFont(new Font(20));
-    	info.setTextFill(Color.WHITE);
+    	info.setFill(Color.WHITE);
     	BorderPane.setAlignment(info, Pos.CENTER);
+    	root.setTop(info);
     	
     	map = new Map1(width, height);
     	map.init(elements);
@@ -74,7 +78,7 @@ class Game {
         // Create a place to see the shapes
         gc = initGraphicsContext(root);
         
-        myScene = new Scene(root, width, height, Color.BLACK);
+        myScene = new Scene(root, width, height + info.getLayoutBounds().getHeight(), Color.BLACK);
         // Respond to input
         myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         myScene.setOnMouseClicked(e -> handleMouseInput(e.getX(), e.getY()));
@@ -87,8 +91,13 @@ class Game {
     public void step (double elapsedTime) {
     	gc.clearRect(0, 0, width, height);
     	
+    	if (lives <= 0 && status != Status.ToLose) {
+    		setToLose();
+    		return;
+    	}
     	if (System.nanoTime() - startTime > GAME_TIME) {
     		status = Status.Win;
+    		return;
     	}
     	if (status == Status.ToLose 
     			&& System.nanoTime() - toLoseTime > LOSE_DELAY) {
@@ -107,6 +116,7 @@ class Game {
     			elements.remove(i);
     			if (e.BITMASK == playerTank.BITMASK) {
         			playerTank = map.revivePlayerTank();
+        			lives--;
         			deadTime = System.nanoTime();
         		}
     		}
@@ -143,11 +153,15 @@ class Game {
         	case S:
         		playerTank.direction = Direction.DOWN;
         		break;
+        	//cheats
         	case C:
         		clearEnemies();
         		break;
         	case B:
         		playerTank.buffImmortal();
+        		break;
+        	case L:
+        		lives++;
         	default:
         		break;
     	}
@@ -183,11 +197,7 @@ class Game {
     }
     
     private void updateHud() {
-    	int count = 0;
-    	for (Sprite e: elements) {
-    		if (e.BITMASK == ENEMY_TANK_MASK) count++;
-    	}
-    	info.setText(String.format("%d enemies left.", count));
+    	info.setText(String.format("%d lives remaining", lives));
     }
     
     private GraphicsContext initGraphicsContext(BorderPane root) {
@@ -202,6 +212,11 @@ class Game {
     	for (Sprite e: elements) {
     		e.render(gc);
     	}
+    }
+    
+    public static void setToLose() {
+    	status = Status.ToLose;
+    	toLoseTime = System.nanoTime();
     }
     
     public static final int PLAYER_TANK_MASK = 1;
