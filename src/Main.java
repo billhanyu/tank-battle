@@ -60,15 +60,15 @@ public class Main extends Application {
     }
     
     public void gameWin() {
-    	clearGame();
     	Scene winScene = initWinScene();
     	stage.setScene(winScene);
+    	clearGame();
     }
     
     public void gameOver() {
-    	clearGame();
     	Scene overScene = initOverScene();
     	stage.setScene(overScene);
+    	clearGame();
     }
     
     private void step(double elapsedTime) {
@@ -149,7 +149,7 @@ public class Main extends Application {
     }
     
     private Scene initOverScene() {
-    	Label indicator = new Label("Game Over");
+    	Label indicator = new Label("Game Over\nScore: " + myGame.getScore());
     	indicator.setFont(new Font(20));
     	Button startButton = initStartButton();
     	startButton.setText("Play Again");
@@ -163,7 +163,7 @@ public class Main extends Application {
     }
     
     private Scene initWinScene() {
-    	Label indicator = new Label("You Won!");
+    	Label indicator = new Label("You Won!\nScore: " + myGame.getScore());
     	indicator.setFont(new Font(20));
     	Button startButton = initStartButton();
     	startButton.setText("Play Again");
@@ -186,7 +186,8 @@ public class Main extends Application {
     private void clearGame() {
     	myGame = null;
     	frame = null;
-    	animation.stop();
+    	if (animation != null)
+    		animation.stop();
     	animation = null;
     }
 

@@ -29,6 +29,7 @@ class Game {
     public static long deadTime = System.nanoTime();
     private static final long DIE_DELAY = 1000000000L;
     private int lives;
+    private int score;
     private static final int INITIAL_LIVES = 3;
 
     private Scene myScene;
@@ -38,7 +39,7 @@ class Game {
     private int width, height;
     private GameMap map;
     
-    private static final long GAME_TIME = 30000000000L;
+    private static final long GAME_TIME = 30 * 1000000000L;
     private static long startTime = System.nanoTime();
     
     public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
@@ -60,6 +61,7 @@ class Game {
     	elements = new ArrayList<Sprite>();
     	startTime = System.nanoTime();
     	lives = INITIAL_LIVES;
+    	score = 0;
     	
     	BorderPane root = new BorderPane();
     	root.setStyle("-fx-background-color: black;");
@@ -119,6 +121,9 @@ class Game {
         			lives--;
         			deadTime = System.nanoTime();
         		}
+    			else if (e.BITMASK == Game.ENEMY_TANK_MASK) {
+    				score += 100;
+    			}
     		}
     	}
     	
@@ -217,6 +222,10 @@ class Game {
     public static void setToLose() {
     	status = Status.ToLose;
     	toLoseTime = System.nanoTime();
+    }
+    
+    public int getScore() {
+    	return score;
     }
     
     public static final int PLAYER_TANK_MASK = 1;
