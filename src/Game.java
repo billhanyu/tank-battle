@@ -22,6 +22,7 @@ enum Status {
 class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
+    public static int currentLevel = 1;
     
     private static long toLoseTime = System.nanoTime();
     private static final long LOSE_DELAY = 500000000;
@@ -62,6 +63,7 @@ class Game {
     	startTime = System.nanoTime();
     	lives = INITIAL_LIVES;
     	score = 0;
+    	currentLevel = 1;
     	
     	BorderPane root = new BorderPane();
     	root.setStyle("-fx-background-color: black;");
@@ -72,7 +74,7 @@ class Game {
     	BorderPane.setAlignment(info, Pos.CENTER);
     	root.setTop(info);
     	
-    	map = new Map1(width, height);
+    	map = new GameMap(width, height);
     	map.init(elements);
     	
     	playerTank = map.getPlayerTank();
