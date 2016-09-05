@@ -18,6 +18,9 @@ public class GameMap {
 	public void init(ArrayList<Sprite> elements) {
 		this.elements = elements;
 		data = new MapData();
+	}
+	
+	public void buildMap() {
 		pad();
 		createMap();
 	}
@@ -56,6 +59,10 @@ public class GameMap {
 		addStable(currentMap.waterPos, Water.class);
 		addHome();
 		playerTank = revivePlayerTank();
+	}
+	
+	public int numLevels() {
+		return data.numLevels();
 	}
 
 	private void addStable(int[][] pos, Class<? extends Stable> cls) {

@@ -16,13 +16,13 @@ import javafx.scene.text.Text;
  */
 
 enum Status {
-	Wait, Play, Lost, Win, ToLose;
+	Wait, Play, Lost, Win, ToLose, Next;
 }
 
 class Game {
     public static final String TITLE = "Fight for Your Home";
     public static Status status = Status.Wait;
-    public static int currentLevel = 1;
+    public static int currentLevel = 0;
     
     private static long toLoseTime = System.nanoTime();
     private static final long LOSE_DELAY = 500000000;
@@ -38,9 +38,11 @@ class Game {
     private PlayerTank playerTank;
     private Text info;
     private int width, height;
-    private GameMap map;
     
-    private static final long GAME_TIME = 30 * 1000000000L;
+    private GameMap map;
+    private int numLevels;
+    
+    private static final long GAME_TIME = 3 * 1000000000L;
     private static long startTime = System.nanoTime();
     
     public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
@@ -63,7 +65,7 @@ class Game {
     	startTime = System.nanoTime();
     	lives = INITIAL_LIVES;
     	score = 0;
-    	currentLevel = 1;
+    	currentLevel = 0;
     	
     	BorderPane root = new BorderPane();
     	root.setStyle("-fx-background-color: black;");
@@ -76,8 +78,9 @@ class Game {
     	
     	map = new GameMap(width, height);
     	map.init(elements);
+    	numLevels = map.numLevels();
     	
-    	playerTank = map.getPlayerTank();
+    	nextLevel();
     	
         // Create a place to see the shapes
         gc = initGraphicsContext(root);
@@ -100,7 +103,18 @@ class Game {
     		return;
     	}
     	if (System.nanoTime() - startTime > GAME_TIME) {
-    		status = Status.Win;
+    		status = Status.Next;
+    	}
+    	if (status == Status.Next) {
+    		System.out.println("status is next" + currentLevel + numLevels);
+    		if (currentLevel == numLevels - 1) {
+    			status = Status.Win;
+    		}
+    		else {
+    			currentLevel++;
+    			System.out.println("next level");
+    			nextLevel();
+    		}
     		return;
     	}
     	if (status == Status.ToLose 
@@ -133,6 +147,14 @@ class Game {
     	renderElements();
     	updateHud();
     	map.spawnTank();
+    }
+    
+    private void nextLevel() {
+    	elements.removeAll(elements);
+    	startTime = System.nanoTime();
+    	map.buildMap();
+    	playerTank = map.getPlayerTank();
+    	status = Status.Play;
     }
 
     private void handleKeyInput (KeyCode code) {
