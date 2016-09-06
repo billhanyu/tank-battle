@@ -8,3 +8,6 @@
 # Eclipse files
 /bin
 .project
+
+# Leader Board file
+*.ser

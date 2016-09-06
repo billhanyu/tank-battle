@@ -32,7 +32,12 @@ public class LeaderBoard {
 	}
 	
 	public ArrayList<Leader> getLeaders() {
-		return leaders;
+		int currentSize = leaders.size();
+		ArrayList<Leader> present = new ArrayList<Leader>(leaders);
+		for (int i = 0; i < SIZE - currentSize; i++) {
+			present.add(new Leader("-", 0));
+		}
+		return present;
 	}
 
 	public void save() {
