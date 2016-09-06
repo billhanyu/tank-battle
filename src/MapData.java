@@ -19,7 +19,7 @@ public class MapData {
 
 	private void initMapData() {
 		Map map1 = new Map(tankPos1, brickPos1, stonePos1, waterPos1, grassPos1, homePos1, playerPos1);
-		Map map2 = new Map(tankPos1, brickPos1, stonePos1, waterPos1, grassPos1, homePos1, playerPos1);
+		Map map2 = new Map(tankPos2, brickPos2, stonePos2, waterPos2, grassPos2, homePos2, playerPos2);
 		maps.add(map1);
 		maps.add(map2);
 	}
@@ -48,4 +48,28 @@ public class MapData {
 		};
 	private static final int[] homePos1 = {320, 640};
 	private static final int[] playerPos1 = {240, 640};
+	
+	private static final int[][] tankPos2 = 
+		{
+				{0, 0}, {320, 0}, {640, 0}
+		};
+	private static final int[][] brickPos2 = 
+		{
+				{280, 600, 120, 40}, {280, 640, 40, 40}, {360, 640, 40, 40},//home
+				{60, 320, 40, 180}, {160, 360, 40, 140}, {580, 320, 40, 180}, {480, 360, 40, 140}
+		};
+	private static final int[][] stonePos2 = 
+		{
+				{200, 400, 40, 20}, {440, 400, 40, 20}
+		};
+	private static final int[][] waterPos2 = 
+		{
+				{160, 160, 40, 120}, {480, 160, 40, 120}
+		};
+	private static final int[][] grassPos2 =
+		{
+				{200, 160, 280, 60}
+		};
+	private static final int[] homePos2 = {320, 640};
+	private static final int[] playerPos2 = {240, 600};
 }
