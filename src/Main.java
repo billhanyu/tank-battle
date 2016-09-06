@@ -180,7 +180,12 @@ public class Main extends Application {
     	VBox root = new VBox();
     	root.setSpacing(60);
     	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton, leadersButton, exitButton);
+    	root.getChildren().add(indicator);
+    	int score = myGame.getScore();
+    	if (board.canGetOn(score)) {
+    		root.getChildren().add(initNameInput(score));
+    	}
+    	root.getChildren().addAll(startButton, leadersButton, exitButton);
     	Scene overScene = new Scene(root, SIZE, SIZE);
     	return overScene;
     }
