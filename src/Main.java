@@ -175,11 +175,12 @@ public class Main extends Application {
     	indicator.setFont(new Font(20));
     	Button startButton = initStartButton();
     	startButton.setText("Play Again");
+    	Button leadersButton = initLeadersButton();
     	Button exitButton = initExitButton();
     	VBox root = new VBox();
     	root.setSpacing(60);
     	root.setAlignment(Pos.CENTER);
-    	root.getChildren().addAll(indicator, startButton, exitButton);
+    	root.getChildren().addAll(indicator, startButton, leadersButton, exitButton);
     	Scene overScene = new Scene(root, SIZE, SIZE);
     	return overScene;
     }

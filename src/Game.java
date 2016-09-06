@@ -46,7 +46,7 @@ class Game {
 	private GameMap map;
 	private int numLevels;
 
-	private static final long GAME_TIME = 3 * 1000000000L;
+	private static final long GAME_TIME = 30 * 1000000000L;
 	private static long startTime = System.nanoTime();
 
 	public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
