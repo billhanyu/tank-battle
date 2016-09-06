@@ -1,9 +1,8 @@
 
 public final class Brick extends Stable {
+	
 	public Brick() {
-		imageFile = "brick.gif";
-		setImage(imageFile);
-		BITMASK = Game.STABLE_MASK;
+		super();
 	}
 
 	public void handleCollision(Sprite s) {
@@ -16,5 +15,10 @@ public final class Brick extends Stable {
 			break;
 		}
 		super.handleCollision(s);
+	}
+
+	@Override
+	protected void setImageFile() {
+		imageFile = "brick.gif";
 	}
 }

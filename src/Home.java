@@ -1,9 +1,8 @@
 
 public class Home extends Stable {
+	
 	public Home() {
-		imageFile = "home.gif";
-		setImage(imageFile);
-		BITMASK = Game.STABLE_MASK;
+		super();
 	}
 	
 	@Override
@@ -13,5 +12,10 @@ public class Home extends Stable {
 			imageFile = "nohome.gif";
 			setImage(imageFile);
 		}
+	}
+
+	@Override
+	protected void setImageFile() {
+		imageFile = "home.gif";
 	}
 }

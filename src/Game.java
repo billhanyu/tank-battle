@@ -29,6 +29,7 @@ class Game {
     
     public static long deadTime = System.nanoTime();
     private static final long DIE_DELAY = 1000000000L;
+    
     private int lives;
     private int score;
     private static final int INITIAL_LIVES = 3;
@@ -88,7 +89,6 @@ class Game {
         myScene = new Scene(root, width, height + info.getLayoutBounds().getHeight(), Color.BLACK);
         // Respond to input
         myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-        myScene.setOnMouseClicked(e -> handleMouseInput(e.getX(), e.getY()));
         return myScene;
     }
 
@@ -106,13 +106,11 @@ class Game {
     		status = Status.Next;
     	}
     	if (status == Status.Next) {
-    		System.out.println("status is next" + currentLevel + numLevels);
     		if (currentLevel == numLevels - 1) {
     			status = Status.Win;
     		}
     		else {
     			currentLevel++;
-    			System.out.println("next level");
     			nextLevel();
     		}
     		return;
@@ -194,10 +192,6 @@ class Game {
         	default:
         		break;
     	}
-    }
-
-    private void handleMouseInput (double x, double y) {
-        
     }
     
     private void detectCollisions() {

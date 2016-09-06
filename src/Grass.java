@@ -1,8 +1,12 @@
 
 public class Grass extends Stable {
+	
 	public Grass() {
+		super();
+	}
+
+	@Override
+	protected void setImageFile() {
 		imageFile = "grass.gif";
-		setImage(imageFile);
-		BITMASK = Game.STABLE_MASK;
 	}
 }
