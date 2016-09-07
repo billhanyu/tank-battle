@@ -33,6 +33,8 @@ public class Main extends Application {
     private Timeline animation;
     private LeaderBoard board;
     private boolean didInputName;
+    
+    private SoundManager soundManager;
 
     /**
      * Set things up at the beginning.
@@ -44,6 +46,7 @@ public class Main extends Application {
     	Scene startScene = initStartScene();
     	configureStage(startScene);
     	stage.show();
+    	soundManager = new SoundManager();
     }
     
     private void gameStart() {
@@ -66,12 +69,14 @@ public class Main extends Application {
     }
     
     public void gameWin() {
+    	soundManager.playVictory();
     	Scene winScene = initWinScene();
     	stage.setScene(winScene);
     	clearGame();
     }
     
     public void gameOver() {
+    	soundManager.playDefeat();
     	Scene overScene = initOverScene();
     	stage.setScene(overScene);
     	clearGame();

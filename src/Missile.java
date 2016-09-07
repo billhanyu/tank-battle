@@ -35,7 +35,7 @@ public class Missile extends Sprite {
 	}
 	
 	protected void dealWithCollision(Sprite s) {
-		if (!(s instanceof Water || s instanceof Grass)) {
+		if (!(s instanceof Water || s instanceof Grass) || s instanceof Missile) {
 			health = 0;
 		}
 	}

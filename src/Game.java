@@ -37,6 +37,7 @@ class Game {
 	private int lives;
 	private int score;
 	private static final int INITIAL_LIVES = 3;
+	private static final int SCORE_UNIT = 100;
 
 	private Scene myScene;
 	private GraphicsContext gc;
@@ -48,7 +49,7 @@ class Game {
 	private GameMap map;
 	private int numLevels;
 
-	private static final long GAME_TIME = 30 * 1000000000L;
+	private static final long GAME_TIME = 3 * 1000000000L;
 	private static long startTime = System.nanoTime();
 
 	public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
@@ -259,7 +260,7 @@ class Game {
 					deadTime = System.nanoTime();
 				}
 				else if (e.BITMASK == Game.ENEMY_TANK_MASK) {
-					score += 100;
+					score += SCORE_UNIT;
 				}
 			}
 		}
