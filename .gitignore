@@ -11,3 +11,6 @@
 
 # Leader Board file
 *.ser
+
+# Log files
+*.log
