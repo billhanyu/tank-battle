@@ -9,4 +9,8 @@ public final class Stone extends Stable {
 	protected void setImageFile() {
 		imageFile = "stone.gif";
 	}
+
+	@Override
+	protected void dealWithCollision(Sprite s) {
+	}
 }

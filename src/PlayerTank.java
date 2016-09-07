@@ -1,3 +1,7 @@
+import java.nio.file.Paths;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PlayerTank extends Tank {
 	
@@ -39,11 +43,18 @@ public class PlayerTank extends Tank {
 		setGreen();
 	}
 	
-	public void handleCollision(Sprite s) {
+	protected void dealWithCollision(Sprite s) {
 		if (s.BITMASK == Game.ENEMY_MISSILE_MASK
 				|| s.BITMASK == Game.ENEMY_TANK_MASK) {
 			health--;
 		}
-		super.handleCollision(s);
+	}
+	
+	public void playDeadSound() {
+		System.out.println("slain");
+		String bip = "sounds/slain.mp3";
+		Media hit = new Media(Paths.get(bip).toUri().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
 	}
 }

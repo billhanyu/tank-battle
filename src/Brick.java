@@ -5,7 +5,7 @@ public final class Brick extends Stable {
 		super();
 	}
 
-	public void handleCollision(Sprite s) {
+	protected void dealWithCollision(Sprite s) {
 		switch (s.BITMASK) {
 		case Game.PLAYER_MISSILE_MASK:
 		case Game.ENEMY_MISSILE_MASK:
@@ -14,7 +14,6 @@ public final class Brick extends Stable {
 		default:
 			break;
 		}
-		super.handleCollision(s);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.input.KeyCode;
@@ -74,18 +75,7 @@ class Game {
 
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: black;");
-
-		livesHud = new Text();
-		livesHud.setFont(new Font(20));
-		livesHud.setFill(Color.WHITE);
-		timeHud = new Text();
-		timeHud.setFont(new Font(20));
-		timeHud.setFill(Color.WHITE);
-		HBox box = new HBox();
-		box.getChildren().addAll(livesHud, timeHud);
-		box.setSpacing(300);
-		BorderPane.setAlignment(box, Pos.CENTER);
-		root.setTop(box);
+		root.setTop(initHud());
 
 		map = new GameMap(width, height);
 		map.init(elements);
@@ -99,6 +89,20 @@ class Game {
 		// Respond to input
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return myScene;
+	}
+
+	private Node initHud() {
+		livesHud = new Text();
+		livesHud.setFont(new Font(20));
+		livesHud.setFill(Color.WHITE);
+		timeHud = new Text();
+		timeHud.setFont(new Font(20));
+		timeHud.setFill(Color.WHITE);
+		HBox box = new HBox();
+		box.getChildren().addAll(livesHud, timeHud);
+		box.setSpacing(300);
+		BorderPane.setAlignment(box, Pos.CENTER);
+		return box;
 	}
 
 	/**
@@ -243,7 +247,7 @@ class Game {
 		int i = 0;
 		while (i < elements.size()) {
 			Sprite e = elements.get(i);
-			if (e.alive) {
+			if (e.isAlive()) {
 				e.update(elapsedTime);
 				i++;
 			}

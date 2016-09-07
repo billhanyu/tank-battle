@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="images"/>
+	<classpathentry kind="lib" path="sounds"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

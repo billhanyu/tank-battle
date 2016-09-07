@@ -7,7 +7,7 @@ enum Direction {
 	LEFT, RIGHT, UP, DOWN, NONE;
 }
 
-public class Sprite implements Comparable<Sprite> {
+public abstract class Sprite implements Comparable<Sprite> {
     private Image image;
     protected double positionX;
     protected double positionY;  
@@ -85,9 +85,16 @@ public class Sprite implements Comparable<Sprite> {
     }
     
     public void handleCollision(Sprite s) {
+    	dealWithCollision(s);
     	if (health <= 0) {
     		alive = false;
     	}
+    }
+    
+    protected abstract void dealWithCollision(Sprite s);
+    
+    public boolean isAlive() {
+    	return alive;
     }
 
 	@Override

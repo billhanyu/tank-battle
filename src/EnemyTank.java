@@ -56,11 +56,10 @@ public class EnemyTank extends Tank {
 		}
 	}
 	
-	public void handleCollision(Sprite s) {
+	protected void dealWithCollision(Sprite s) {
 		if (s.BITMASK == Game.PLAYER_MISSILE_MASK
 				|| s.BITMASK == Game.PLAYER_TANK_MASK) {
 			health--;
 		}
-		super.handleCollision(s);
 	}
 }

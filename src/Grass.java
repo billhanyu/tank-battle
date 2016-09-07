@@ -9,4 +9,8 @@ public class Grass extends Stable {
 	protected void setImageFile() {
 		imageFile = "grass.gif";
 	}
+
+	@Override
+	protected void dealWithCollision(Sprite s) {
+	}
 }

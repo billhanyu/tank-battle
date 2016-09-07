@@ -9,4 +9,8 @@ public class Water extends Stable {
 	protected void setImageFile() {
 		imageFile = "water.gif";
 	}
+
+	@Override
+	protected void dealWithCollision(Sprite s) {
+	}
 }

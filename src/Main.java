@@ -233,17 +233,23 @@ public class Main extends Application {
     	VBox box = new VBox();
     	box.setPadding(new Insets(15, 12, 15, 12));
         box.setSpacing(60);
-        
-        HBox leadersBox = new HBox();
-        box.setPadding(new Insets(15, 12, 15, 12));
-        leadersBox.setSpacing(60);
-        leadersBox.setAlignment(Pos.CENTER);
     	
         ArrayList<Leader> leaders = board.getLeaders();
         Button startButton = initStartButton();
         startButton.setText("Play Again");
         Button exitButton = initExitButton();
         
+        Node leadersBox = initLeadersBox(leaders);
+    	box.getChildren().addAll(leadersBox, startButton, exitButton);
+    	box.setAlignment(Pos.CENTER);
+    	return box;
+    }
+
+	private HBox initLeadersBox(ArrayList<Leader> leaders) {
+		HBox leadersBox = new HBox();
+        leadersBox.setPadding(new Insets(15, 12, 15, 12));
+        leadersBox.setSpacing(60);
+        leadersBox.setAlignment(Pos.CENTER);
         VBox names = new VBox();
         names.setSpacing(20);
         VBox scores = new VBox();
@@ -263,10 +269,8 @@ public class Main extends Application {
         	scores.getChildren().add(s);
         }
         leadersBox.getChildren().addAll(names, scores);
-    	box.getChildren().addAll(leadersBox, startButton, exitButton);
-    	box.setAlignment(Pos.CENTER);
-    	return box;
-    }
+		return leadersBox;
+	}
     
     private VBox initNameInput(int score) {
     	VBox whole = new VBox();
