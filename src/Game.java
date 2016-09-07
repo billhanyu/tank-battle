@@ -40,7 +40,8 @@ class Game {
 	private Scene myScene;
 	private GraphicsContext gc;
 	private PlayerTank playerTank;
-	private Text info;
+	private Text livesHud;
+	private Text timeHud;
 	private int width, height;
 
 	private GameMap map;
@@ -74,11 +75,17 @@ class Game {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: black;");
 
-		info = new Text("This is fun.");
-		info.setFont(new Font(20));
-		info.setFill(Color.WHITE);
-		BorderPane.setAlignment(info, Pos.CENTER);
-		root.setTop(info);
+		livesHud = new Text();
+		livesHud.setFont(new Font(20));
+		livesHud.setFill(Color.WHITE);
+		timeHud = new Text();
+		timeHud.setFont(new Font(20));
+		timeHud.setFill(Color.WHITE);
+		HBox box = new HBox();
+		box.getChildren().addAll(livesHud, timeHud);
+		box.setSpacing(300);
+		BorderPane.setAlignment(box, Pos.CENTER);
+		root.setTop(box);
 
 		map = new GameMap(width, height);
 		map.init(elements);
@@ -88,7 +95,7 @@ class Game {
 		
 		gc = initGraphicsContext(root);
 
-		myScene = new Scene(root, width, height + info.getLayoutBounds().getHeight(), Color.BLACK);
+		myScene = new Scene(root, width, height + livesHud.getLayoutBounds().getHeight(), Color.BLACK);
 		// Respond to input
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return myScene;
@@ -205,7 +212,16 @@ class Game {
 	}
 
 	private void updateHud() {
-		info.setText(String.format("%d lives remaining", lives));
+		updateLivesHud();
+		updateTimeHud();
+	}
+	
+	private void updateLivesHud() {
+		livesHud.setText(String.format("Lives: %d", lives));
+	}
+	
+	private void updateTimeHud() {
+		timeHud.setText("Time: " + (30 - (System.nanoTime() - startTime) / 1000000000L));
 	}
 
 	private GraphicsContext initGraphicsContext(BorderPane root) {
