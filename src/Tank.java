@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public abstract class Tank extends Sprite {
 	
@@ -13,14 +14,17 @@ public abstract class Tank extends Sprite {
 	protected Direction missileDirection = direction;
 	private long fireTime = System.nanoTime();
 	
-	public Tank() {
+	private ArrayList<Sprite> elements;
+	
+	public Tank(ArrayList<Sprite> elements) {
+		this.elements = elements;
 		setWhite();
 		setImage(TANK_UP);
 		BITMASK = Game.ENEMY_TANK_MASK; //default, enemy tanks
 	}
 	
-	public Tank(int mask) {
-		this();
+	public Tank(ArrayList<Sprite> elements, int mask) {
+		this(elements);
 		BITMASK = mask;
 	}
 	
@@ -100,7 +104,7 @@ public abstract class Tank extends Sprite {
 				break;
 		}
 		fireTime = time;
-		if (missile != null) Game.elements.add(missile);
+		if (missile != null) elements.add(missile);
 		return missile;
 	}
 	

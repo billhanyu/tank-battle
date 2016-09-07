@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class EnemyTank extends Tank {
 	
@@ -6,8 +7,8 @@ public class EnemyTank extends Tank {
 	private static final double DIRECTION_CHANGE_POS = 0.01;
 	private static final double FIRE_MISSILE_POS = 0.01;
 	
-	public EnemyTank() {
-		super();
+	public EnemyTank(ArrayList<Sprite> elements) {
+		super(elements);
 		SPEED = 50;
 	}
 	

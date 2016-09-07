@@ -1,4 +1,5 @@
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -8,8 +9,8 @@ public class PlayerTank extends Tank {
 	private static final long IMMORTAL_DELAY = 5000*1000*100;
 	private long immortalStartTime = System.nanoTime();
 	
-	public PlayerTank() {
-		super();
+	public PlayerTank(ArrayList<Sprite> elements) {
+		super(elements);
 		setGreen();
 		BITMASK = Game.PLAYER_TANK_MASK;
 		buffImmortal();

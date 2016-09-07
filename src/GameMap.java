@@ -99,7 +99,7 @@ public class GameMap {
 	public void spawnTank() {
 		for (int[] pos: currentMap.tankPos) {
 			if (Math.random() < SPAWN_POS) {
-				EnemyTank tank = new EnemyTank();
+				EnemyTank tank = new EnemyTank(elements);
 				tank.setPosition(pos[0], pos[1]);
 				boolean valid = true;
 				for (Sprite e: elements) {
@@ -120,7 +120,7 @@ public class GameMap {
 	}
 
 	public PlayerTank revivePlayerTank() {
-		playerTank = new PlayerTank();
+		playerTank = new PlayerTank(elements);
 		playerTank.setPosition(currentMap.playerPos[0], currentMap.playerPos[1]);
 		elements.add(playerTank);
 		return playerTank;

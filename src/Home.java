@@ -7,7 +7,7 @@ public class Home extends Stable {
 
 	protected void dealWithCollision(Sprite s) {
 		if (s instanceof Missile) {
-			Game.setToLose();
+			health--;
 			imageFile = "nohome.gif";
 			setImage(imageFile);
 		}

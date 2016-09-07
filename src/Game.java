@@ -22,16 +22,16 @@ enum Status {
 
 class Game {
 	public static final String TITLE = "Fight for Your Home";
-	public static Status status = Status.Wait;
+	private Status status = Status.Wait;
 	public static int currentLevel = 0;
 
 	private static long toLoseTime = System.nanoTime();
 	private static final long LOSE_DELAY = 500 * 1000000;
 
-	public static long deadTime = System.nanoTime();
+	public long deadTime = System.nanoTime();
 	private static final long DIE_DELAY = 1 * 1000000000L;
 
-	private static long passLevelTime = System.nanoTime();
+	private long passLevelTime = System.nanoTime();
 	private static final long LEVEL_DELAY = 3 * 1000000000L;
 
 	private int lives;
@@ -50,9 +50,9 @@ class Game {
 	private int numLevels;
 
 	private static final long GAME_TIME = 3 * 1000000000L;
-	private static long startTime = System.nanoTime();
+	private long startTime = System.nanoTime();
 
-	public static ArrayList<Sprite> elements = new ArrayList<Sprite>();
+	private ArrayList<Sprite> elements = new ArrayList<Sprite>();
 
 	/**
 	 * Returns name of the game.
@@ -253,6 +253,13 @@ class Game {
 				i++;
 			}
 			else {
+				if (e instanceof Home) {
+					if (status == Status.Play) {
+						setToLose();
+					}
+					i++;
+					continue;
+				}
 				elements.remove(i);
 				if (e.BITMASK == playerTank.BITMASK) {
 					playerTank = map.revivePlayerTank();
@@ -266,9 +273,13 @@ class Game {
 		}
 	}
 
-	public static void setToLose() {
+	public void setToLose() {
 		status = Status.ToLose;
 		toLoseTime = System.nanoTime();
+	}
+	
+	public Status getStatus() {
+		return status;
 	}
 
 	public int getScore() {
