@@ -1,16 +1,9 @@
 
-import java.util.ArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.*;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,8 +24,6 @@ public class Main extends Application {
     private Stage stage;
     private KeyFrame frame;
     private Timeline animation;
-    private LeaderBoard board;
-    private boolean didInputName;
     
     private GameButtons btnManager;
     
@@ -62,12 +53,10 @@ public class Main extends Application {
     @Override
     public void start (Stage s) {
     	this.stage = s;
-    	board = new LeaderBoard();
     	soundManager = new SoundManager();
     	btnManager = new GameButtons(new GameStart(), new ShowLeaders(), new GameExit());
-    	StartScene startScene = new StartScene(btnManager, SIZE);
-    	Scene startscn = startScene.initScene();
-    	configureStage(startscn);
+    	Scene startScene = new StartScene(btnManager, SIZE).initScene();
+    	configureStage(startScene);
     	stage.show();
     }
     
@@ -75,7 +64,7 @@ public class Main extends Application {
     	// create your own game here
         myGame = new Game();
         stage.setTitle(myGame.getTitle());
-        didInputName = false;
+        btnManager.refreshGame();
 
         // attach game to the stage and display it
         Scene gameScene = myGame.init(SIZE, SIZE);
@@ -92,20 +81,20 @@ public class Main extends Application {
     
     public void gameWin() {
     	soundManager.playVictory();
-    	Scene winScene = initWinScene();
+    	Scene winScene = new WinScene(btnManager, SIZE, myGame).initScene();
     	stage.setScene(winScene);
     	clearGame();
     }
     
     public void gameOver() {
     	soundManager.playDefeat();
-    	Scene overScene = initOverScene();
+    	Scene overScene = new OverScene(btnManager, SIZE, myGame).initOverScene();
     	stage.setScene(overScene);
     	clearGame();
     }
     
     public void showLeaders() {
-    	Scene leadersScene = initLeadersScene();
+    	Scene leadersScene = new LeadersScene(btnManager, SIZE, myGame).initScene();
     	stage.setScene(leadersScene);
     }
     
@@ -121,138 +110,6 @@ public class Main extends Application {
     			break;
     	}
     	myGame.step(elapsedTime);
-    }
-    
-    private Scene initOverScene() {
-    	Label indicator = new Label("Game Over\nScore: " + myGame.getScore());
-    	indicator.setFont(new Font(20));
-    	Button startButton = btnManager.initStartButton();
-    	startButton.setText("Play Again");
-    	Button leadersButton = btnManager.initLeadersButton();
-    	Button exitButton = btnManager.initExitButton();
-    	VBox root = new VBox();
-    	root.setSpacing(60);
-    	root.setAlignment(Pos.CENTER);
-    	root.getChildren().add(indicator);
-    	int score = myGame.getScore();
-    	if (board.canGetOn(score)) {
-    		root.getChildren().add(initNameInput(score));
-    	}
-    	root.getChildren().addAll(startButton, leadersButton, exitButton);
-    	Scene overScene = new Scene(root, SIZE, SIZE);
-    	return overScene;
-    }
-    
-    private Scene initWinScene() {
-    	VBox root = new VBox();
-    	root.setSpacing(60);
-    	root.setAlignment(Pos.CENTER);
-    	
-    	int score = myGame.getScore();
-    	Label indicator = new Label("You Won!\nScore: " + score);
-    	root.getChildren().add(indicator);
-    	if (board.canGetOn(score)) {
-    		root.getChildren().add(initNameInput(score));
-    	}
-    	indicator.setFont(new Font(20));
-    	Button startButton = btnManager.initStartButton();
-    	Button leadersButton = btnManager.initLeadersButton();
-    	startButton.setText("Play Again");
-    	Button exitButton = btnManager.initExitButton();
-    	
-    	root.getChildren().addAll(startButton, leadersButton, exitButton);
-    	Scene winScene = new Scene(root, SIZE, SIZE);
-    	return winScene;
-    }
-    
-    private Scene initLeadersScene() {
-    	BorderPane root = new BorderPane();
-    	
-    	Node leaders = initLeadersView();
-    	
-    	Label title = new Label("Leader Board");
-    	title.setFont(new Font(20));
-    	title.setPadding(new Insets(15, 15, 15, 15));
-    	title.setTextAlignment(TextAlignment.CENTER);
-    	
-    	root.setTop(title);
-    	root.setCenter(leaders);
-    	BorderPane.setAlignment(title, Pos.CENTER);
-    	Scene scn = new Scene(root, SIZE, SIZE);
-    	return scn;
-    }
-    
-    private Node initLeadersView() {
-    	VBox box = new VBox();
-    	box.setPadding(new Insets(15, 12, 15, 12));
-        box.setSpacing(60);
-    	
-        ArrayList<Leader> leaders = board.getLeaders();
-        Button startButton = btnManager.initStartButton();
-        startButton.setText("Play Again");
-        Button exitButton = btnManager.initExitButton();
-        
-        Node leadersBox = initLeadersBox(leaders);
-    	box.getChildren().addAll(leadersBox, startButton, exitButton);
-    	box.setAlignment(Pos.CENTER);
-    	return box;
-    }
-
-	private HBox initLeadersBox(ArrayList<Leader> leaders) {
-		HBox leadersBox = new HBox();
-        leadersBox.setPadding(new Insets(15, 12, 15, 12));
-        leadersBox.setSpacing(60);
-        leadersBox.setAlignment(Pos.CENTER);
-        VBox names = new VBox();
-        names.setSpacing(20);
-        VBox scores = new VBox();
-        scores.setSpacing(20);
-        for (Leader l: leaders) {
-        	Text text = new Text();
-        	text.setFont(new Font(16));
-        	text.setWrappingWidth(100);
-        	text.setTextAlignment(TextAlignment.JUSTIFY);
-        	text.setText(l.name);
-        	names.getChildren().add(text);
-        	Text s = new Text();
-        	s.setFont(new Font(16));
-        	s.setWrappingWidth(100);
-        	s.setTextAlignment(TextAlignment.RIGHT);
-        	s.setText(""+l.score);
-        	scores.getChildren().add(s);
-        }
-        leadersBox.getChildren().addAll(names, scores);
-		return leadersBox;
-	}
-    
-    private VBox initNameInput(int score) {
-    	VBox whole = new VBox();
-    	whole.setAlignment(Pos.CENTER);
-    	Label indicator = new Label("You just got on the leader board!");
-    	whole.setSpacing(20);
-    	HBox box = new HBox();
-    	box.setAlignment(Pos.CENTER);
-    	box.setPadding(new Insets(15, 12, 15, 12));
-    	box.setSpacing(20);
-    	Label prompt = new Label("Name:");
-    	TextField input = new TextField();
-    	Button confirm = new Button("OK");
-    	confirm.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			if (didInputName) {
-    				indicator.setText("You've already put your name in!");
-    				return;
-    			}
-    			didInputName = true;
-    			Leader l = new Leader(input.getText(), score);
-    			board.putOn(l);
-    			board.save();
-    			indicator.setText("Succeeded!");
-    		}
-    	});
-    	box.getChildren().addAll(prompt, input, confirm);
-    	whole.getChildren().addAll(indicator, box);
-    	return whole;
     }
     
     private void configureStage(Scene startScene) {
