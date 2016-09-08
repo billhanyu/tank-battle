@@ -34,7 +34,27 @@ public class Main extends Application {
     private LeaderBoard board;
     private boolean didInputName;
     
+    private GameButtons btnManager;
+    
     private SoundManager soundManager;
+    
+    class GameStart implements EventHandler<ActionEvent> {
+    	public void handle(ActionEvent event) {
+			gameStart();
+		}
+    }
+    
+    class ShowLeaders implements EventHandler<ActionEvent> {
+    	public void handle(ActionEvent event) {
+			showLeaders();
+		}
+    }
+    
+    class GameExit implements EventHandler<ActionEvent> {
+    	public void handle(ActionEvent event) {
+			stage.close();
+		}
+    }
 
     /**
      * Set things up at the beginning.
@@ -43,6 +63,7 @@ public class Main extends Application {
     public void start (Stage s) {
     	this.stage = s;
     	board = new LeaderBoard();
+    	btnManager = new GameButtons(new GameStart(), new ShowLeaders(), new GameExit());
     	Scene startScene = initStartScene();
     	configureStage(startScene);
     	stage.show();
@@ -101,46 +122,13 @@ public class Main extends Application {
     	myGame.step(elapsedTime);
     }
     
-    private Button initStartButton() {
-    	Button startButton = new Button("Start Game");
-    	startButton.setPrefWidth(120);
-    	startButton.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			gameStart();
-    		}
-    	});
-    	return startButton;
-    }
-    
-    private Button initLeadersButton() {
-    	Button leadersButton = new Button("Leader Board");
-    	leadersButton.setPrefWidth(120);
-    	leadersButton.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			showLeaders();
-    		}
-    	});
-    	return leadersButton;
-    }
-    
-    private Button initExitButton() {
-    	Button exitButton = new Button("Exit");
-    	exitButton.setPrefWidth(120);
-    	exitButton.setOnAction(new EventHandler<ActionEvent>() {
-    		public void handle(ActionEvent event) {
-    			stage.close();
-    		}
-    	});
-    	return exitButton;
-    }
-    
     private VBox initStartViewButtons() {
     	VBox buttons = new VBox();
     	
     	buttons.setPadding(new Insets(15, 12, 15, 12));
         buttons.setSpacing(100);
         
-        Button startButton = initStartButton();
+        Button startButton = btnManager.initStartButton();
     	
     	Text text = new Text();
 		text.setFont(new Font(16));
@@ -178,10 +166,10 @@ public class Main extends Application {
     private Scene initOverScene() {
     	Label indicator = new Label("Game Over\nScore: " + myGame.getScore());
     	indicator.setFont(new Font(20));
-    	Button startButton = initStartButton();
+    	Button startButton = btnManager.initStartButton();
     	startButton.setText("Play Again");
-    	Button leadersButton = initLeadersButton();
-    	Button exitButton = initExitButton();
+    	Button leadersButton = btnManager.initLeadersButton();
+    	Button exitButton = btnManager.initExitButton();
     	VBox root = new VBox();
     	root.setSpacing(60);
     	root.setAlignment(Pos.CENTER);
@@ -207,10 +195,10 @@ public class Main extends Application {
     		root.getChildren().add(initNameInput(score));
     	}
     	indicator.setFont(new Font(20));
-    	Button startButton = initStartButton();
-    	Button leadersButton = initLeadersButton();
+    	Button startButton = btnManager.initStartButton();
+    	Button leadersButton = btnManager.initLeadersButton();
     	startButton.setText("Play Again");
-    	Button exitButton = initExitButton();
+    	Button exitButton = btnManager.initExitButton();
     	
     	root.getChildren().addAll(startButton, leadersButton, exitButton);
     	Scene winScene = new Scene(root, SIZE, SIZE);
@@ -240,9 +228,9 @@ public class Main extends Application {
         box.setSpacing(60);
     	
         ArrayList<Leader> leaders = board.getLeaders();
-        Button startButton = initStartButton();
+        Button startButton = btnManager.initStartButton();
         startButton.setText("Play Again");
-        Button exitButton = initExitButton();
+        Button exitButton = btnManager.initExitButton();
         
         Node leadersBox = initLeadersBox(leaders);
     	box.getChildren().addAll(leadersBox, startButton, exitButton);
