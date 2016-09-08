@@ -1,3 +1,7 @@
+package stable;
+
+import sprite.Missile;
+import sprite.Sprite;
 
 public class Home extends Stable {
 	

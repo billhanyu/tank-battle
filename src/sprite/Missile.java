@@ -1,3 +1,8 @@
+package sprite;
+
+import stable.Grass;
+import stable.Water;
+
 public class Missile extends Sprite {
 	private static final String MISSILE_UP = "missile-up.gif";
 	private static final String MISSILE_DOWN = "missile-down.gif";

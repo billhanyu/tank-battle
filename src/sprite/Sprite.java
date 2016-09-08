@@ -1,11 +1,10 @@
+package sprite;
 import javafx.scene.image.Image;
+import stable.Grass;
+import stable.Water;
 import javafx.scene.canvas.GraphicsContext;
 
 import javafx.geometry.Rectangle2D;
-
-enum Direction {
-	LEFT, RIGHT, UP, DOWN, NONE;
-}
 
 public abstract class Sprite implements Comparable<Sprite> {
     private Image image;
@@ -19,7 +18,7 @@ public abstract class Sprite implements Comparable<Sprite> {
     protected double height;
     
     protected int BITMASK;
-    protected boolean alive = true;
+    private boolean alive = true;
     protected int health = 1;
 
     public Sprite() {
@@ -87,7 +86,7 @@ public abstract class Sprite implements Comparable<Sprite> {
     public void handleCollision(Sprite s) {
     	dealWithCollision(s);
     	if (health <= 0) {
-    		alive = false;
+    		setAlive(false);
     	}
     }
     
@@ -112,5 +111,17 @@ public abstract class Sprite implements Comparable<Sprite> {
 			return 1;
 		}
 		return 0;
+	}
+
+	public int getBITMASK() {
+		return BITMASK;
+	}
+
+	public void setBITMASK(int bITMASK) {
+		BITMASK = bITMASK;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 }

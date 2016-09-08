@@ -1,4 +1,8 @@
+package sprite;
 import java.util.ArrayList;
+
+import game.Game;
+import stable.Grass;
 
 public abstract class Tank extends Sprite {
 	
@@ -10,8 +14,8 @@ public abstract class Tank extends Sprite {
 	protected String TANK_LEFT;
 	protected String TANK_RIGHT;
 	
-	protected Direction direction = Direction.UP;
-	protected Direction missileDirection = direction;
+	private Direction direction = Direction.UP;
+	protected Direction missileDirection = getDirection();
 	private long fireTime = System.nanoTime();
 	
 	private ArrayList<Sprite> elements;
@@ -39,7 +43,7 @@ public abstract class Tank extends Sprite {
 	}
 	
 	private void setSpeedWithDirection() {
-		switch (direction) {
+		switch (getDirection()) {
 		case RIGHT:
 			velocityX = SPEED;
 			velocityY = 0;
@@ -149,6 +153,10 @@ public abstract class Tank extends Sprite {
 		TANK_RIGHT = WHITE_TANK_RIGHT;
 	}
 	
+	public Direction getDirection() {
+		return direction;
+	}
+
 	//constants
 	protected static final String WHITE_TANK_UP = "white-tank-up.gif";
 	protected static final String WHITE_TANK_DOWN = "white-tank-down.gif";

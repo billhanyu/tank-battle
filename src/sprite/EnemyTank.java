@@ -1,4 +1,7 @@
+package sprite;
 import java.util.ArrayList;
+
+import game.Game;
 
 public class EnemyTank extends Tank {
 	
@@ -16,7 +19,7 @@ public class EnemyTank extends Tank {
 		super.update(time);
 		attemptChangeDirection();
 		fireMissileRandom();
-		missileDirection = direction;
+		missileDirection = getDirection();
 	}
 	
 	public int getMissileMask() {
@@ -34,16 +37,16 @@ public class EnemyTank extends Tank {
 		int dir = (int)(Math.random() * 4);
 		switch (dir) {
 		case 0:
-			direction = Direction.UP;
+			setDirection(Direction.UP);
 			break;
 		case 1:
-			direction = Direction.DOWN;
+			setDirection(Direction.DOWN);
 			break;
 		case 2:
-			direction = Direction.LEFT;
+			setDirection(Direction.LEFT);
 			break;
 		case 3:
-			direction = Direction.RIGHT;
+			setDirection(Direction.RIGHT);
 			break;
 		default:
 			break;

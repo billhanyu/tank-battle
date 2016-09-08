@@ -1,3 +1,4 @@
+package game;
 import java.util.ArrayList;
 
 import javafx.geometry.Pos;
@@ -9,6 +10,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import map.GameMap;
+import sprite.Direction;
+import sprite.PlayerTank;
+import sprite.Sprite;
+import stable.Home;
 
 /**
  * Separate the game code from some of the boilerplate code.
@@ -20,7 +26,7 @@ enum Status {
 	Wait, Play, Lost, Win, ToLose, Between;
 }
 
-class Game {
+public class Game {
 	public static final String TITLE = "Fight for Your Home";
 	private Status status = Status.Wait;
 	public static int currentLevel = 0;
@@ -163,19 +169,19 @@ class Game {
 		switch (code) {
 		case RIGHT:
 		case D:
-			playerTank.direction = Direction.RIGHT;
+			playerTank.setDirection(Direction.RIGHT);
 			break;
 		case LEFT:
 		case A:
-			playerTank.direction = Direction.LEFT;
+			playerTank.setDirection(Direction.LEFT);
 			break;
 		case UP:
 		case W:
-			playerTank.direction = Direction.UP;
+			playerTank.setDirection(Direction.UP);
 			break;
 		case DOWN:
 		case S:
-			playerTank.direction = Direction.DOWN;
+			playerTank.setDirection(Direction.DOWN);
 			break;
 			//cheats
 		case C:
@@ -197,7 +203,7 @@ class Game {
 				Sprite e1 = elements.get(i);
 				Sprite e2 = elements.get(j);
 				if (!e1.intersects(e2)) continue;
-				if ((e1.BITMASK & e2.BITMASK) != 0) {
+				if ((e1.getBITMASK() & e2.getBITMASK()) != 0) {
 					e1.handleCollision(e2);;
 					e2.handleCollision(e1);;
 				}
@@ -208,8 +214,8 @@ class Game {
 	public void clearEnemies() {
 		for (int i = 0; i < elements.size(); i++) {
 			Sprite e = elements.get(i);
-			if (e.BITMASK == ENEMY_TANK_MASK) {
-				e.alive = false;
+			if (e.getBITMASK() == ENEMY_TANK_MASK) {
+				e.setAlive(false);
 				elements.remove(i);
 				i--;
 			}
@@ -261,12 +267,12 @@ class Game {
 					continue;
 				}
 				elements.remove(i);
-				if (e.BITMASK == playerTank.BITMASK) {
+				if (e.getBITMASK() == playerTank.getBITMASK()) {
 					playerTank = map.revivePlayerTank();
 					lives--;
 					deadTime = System.nanoTime();
 				}
-				else if (e.BITMASK == Game.ENEMY_TANK_MASK) {
+				else if (e.getBITMASK() == Game.ENEMY_TANK_MASK) {
 					score += SCORE_UNIT;
 				}
 			}

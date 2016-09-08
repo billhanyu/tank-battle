@@ -1,3 +1,4 @@
+package ui;
 import java.nio.file.Paths;
 
 import javafx.scene.media.Media;

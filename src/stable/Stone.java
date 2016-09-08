@@ -1,3 +1,6 @@
+package stable;
+
+import sprite.Sprite;
 
 public final class Stone extends Stable {
 	

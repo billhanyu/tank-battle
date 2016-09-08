@@ -1,13 +1,16 @@
+package stable;
 
-public class Water extends Stable {
+import sprite.Sprite;
+
+public class Grass extends Stable {
 	
-	public Water() {
+	public Grass() {
 		super();
 	}
 
 	@Override
 	protected void setImageFile() {
-		imageFile = "water.gif";
+		imageFile = "grass.gif";
 	}
 
 	@Override

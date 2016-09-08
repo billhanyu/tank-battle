@@ -1,3 +1,5 @@
+package ui;
+import game.Game;
 import javafx.scene.Scene;
 
 public abstract class GameScene {

@@ -1,4 +1,17 @@
+package map;
 import java.util.ArrayList;
+
+import game.Game;
+import sprite.Direction;
+import sprite.EnemyTank;
+import sprite.PlayerTank;
+import sprite.Sprite;
+import stable.Brick;
+import stable.Grass;
+import stable.Home;
+import stable.Stable;
+import stable.Stone;
+import stable.Water;
 
 public class GameMap {
 	private static final double SPAWN_POS = 0.005;

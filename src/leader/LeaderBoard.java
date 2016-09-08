@@ -1,3 +1,4 @@
+package leader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -20,7 +21,7 @@ public class LeaderBoard {
 
 	public boolean canGetOn(int score) {
 		if (leaders.size() < SIZE) return true;
-		return score > leaders.get(leaders.size() - 1).score;
+		return score > leaders.get(leaders.size() - 1).getScore();
 	}
 
 	public void putOn(Leader l) {

@@ -1,3 +1,4 @@
+package ui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -7,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import leader.Leader;
+import leader.LeaderBoard;
 
 public class GameButtons {
 	private EventHandler<ActionEvent> gameStart;

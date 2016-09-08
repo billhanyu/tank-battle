@@ -1,3 +1,4 @@
+package game;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -6,6 +7,12 @@ import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import ui.GameButtons;
+import ui.LeadersScene;
+import ui.OverScene;
+import ui.SoundManager;
+import ui.StartScene;
+import ui.WinScene;
 
 /**
  * This is the main program, it is basically boilerplate to create

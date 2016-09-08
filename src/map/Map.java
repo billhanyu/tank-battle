@@ -1,3 +1,4 @@
+package map;
 public class Map {
 	public int[][] tankPos, brickPos, stonePos, waterPos, grassPos;
 	public int[] homePos, playerPos;

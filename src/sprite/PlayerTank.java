@@ -1,6 +1,8 @@
+package sprite;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import game.Game;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -18,8 +20,8 @@ public class PlayerTank extends Tank {
 	
 	public void update(double time) {
 		super.update(time);
-		missileDirection = direction != Direction.NONE ? direction : missileDirection;
-		direction = Direction.NONE;
+		missileDirection = getDirection() != Direction.NONE ? getDirection() : missileDirection;
+		setDirection(Direction.NONE);
 		checkImmortalOut();
 	}
 	

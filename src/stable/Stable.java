@@ -1,3 +1,7 @@
+package stable;
+
+import game.Game;
+import sprite.Sprite;
 
 public abstract class Stable extends Sprite {
 	protected static String imageFile;

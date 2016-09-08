@@ -1,5 +1,7 @@
+package ui;
 import java.util.ArrayList;
 
+import game.Game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -12,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import leader.Leader;
 
 public class LeadersScene extends GameScene {
 	
@@ -66,13 +69,13 @@ public class LeadersScene extends GameScene {
         	text.setFont(new Font(16));
         	text.setWrappingWidth(100);
         	text.setTextAlignment(TextAlignment.JUSTIFY);
-        	text.setText(l.name);
+        	text.setText(l.getName());
         	names.getChildren().add(text);
         	Text s = new Text();
         	s.setFont(new Font(16));
         	s.setWrappingWidth(100);
         	s.setTextAlignment(TextAlignment.RIGHT);
-        	s.setText(""+l.score);
+        	s.setText(""+l.getScore());
         	scores.getChildren().add(s);
         }
         leadersBox.getChildren().addAll(names, scores);
