@@ -63,11 +63,12 @@ public class Main extends Application {
     public void start (Stage s) {
     	this.stage = s;
     	board = new LeaderBoard();
-    	btnManager = new GameButtons(new GameStart(), new ShowLeaders(), new GameExit());
-    	Scene startScene = initStartScene();
-    	configureStage(startScene);
-    	stage.show();
     	soundManager = new SoundManager();
+    	btnManager = new GameButtons(new GameStart(), new ShowLeaders(), new GameExit());
+    	StartScene startScene = new StartScene(btnManager, SIZE);
+    	Scene startscn = startScene.initScene();
+    	configureStage(startscn);
+    	stage.show();
     }
     
     private void gameStart() {
@@ -120,47 +121,6 @@ public class Main extends Application {
     			break;
     	}
     	myGame.step(elapsedTime);
-    }
-    
-    private VBox initStartViewButtons() {
-    	VBox buttons = new VBox();
-    	
-    	buttons.setPadding(new Insets(15, 12, 15, 12));
-        buttons.setSpacing(100);
-        
-        Button startButton = btnManager.initStartButton();
-    	
-    	Text text = new Text();
-		text.setFont(new Font(16));
-		text.setWrappingWidth(400);
-		text.setTextAlignment(TextAlignment.CENTER);
-		text.setText("WASD or arrow keys to move around\n\nSpace to shoot\n\nProtect your home and destroy enemies");
-		
-    	buttons.getChildren().addAll(text, startButton);
-    	buttons.setAlignment(Pos.CENTER);
-    	
-    	return buttons;
-    }
-    
-    private Label initTitle() {
-    	Label title = new Label("Tank Battle");
-    	title.setFont(new Font(20));
-    	title.setPadding(new Insets(15, 15, 15, 15));
-    	title.setTextAlignment(TextAlignment.CENTER);
-    	return title;
-    }
-    
-    private Scene initStartScene() {
-    	BorderPane root = new BorderPane();
-    	
-    	VBox startViewButtons = initStartViewButtons();
-    	Label title = initTitle();
-    	
-    	root.setTop(title);
-    	root.setCenter(startViewButtons);
-    	BorderPane.setAlignment(title, Pos.CENTER);
-    	Scene scn = new Scene(root, SIZE, SIZE);
-    	return scn;
     }
     
     private Scene initOverScene() {
