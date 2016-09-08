@@ -13,15 +13,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class LeadersScene {
-	private GameButtons btnManager;
-	private final int SIZE;
-	private Game myGame;
+public class LeadersScene extends GameScene {
 	
 	public LeadersScene(GameButtons manager, int SIZE, Game game) {
-		btnManager = manager;
-		this.SIZE = SIZE;
-		myGame = game;
+		super(manager, SIZE, game);
 	}
 	
 	public Scene initScene() {

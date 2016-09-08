@@ -5,15 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class WinScene {
-	private GameButtons btnManager;
-	private final int SIZE;
-	private Game myGame;
+public class WinScene extends GameScene {
 	
 	public WinScene(GameButtons manager, int SIZE, Game game) {
-		btnManager = manager;
-		this.SIZE = SIZE;
-		myGame = game;
+		super(manager, SIZE, game);
 	}
 	
 	public Scene initScene() {

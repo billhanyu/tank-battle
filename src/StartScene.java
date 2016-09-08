@@ -10,13 +10,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class StartScene {
-	private GameButtons btnManager;
-	private final int SIZE;
+public class StartScene extends GameScene {
 	
 	public StartScene(GameButtons manager, int SIZE) {
-		btnManager = manager;
-		this.SIZE = SIZE;
+		super(manager, SIZE);
 	}
 	
 	private Node initStartViewButtons() {

@@ -5,18 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class OverScene {
-	private GameButtons btnManager;
-	private final int SIZE;
-	private Game myGame;
+public class OverScene extends GameScene {
 	
 	public OverScene(GameButtons manager, int SIZE, Game game) {
-		btnManager = manager;
-		this.SIZE = SIZE;
-		myGame = game;
+		super(manager, SIZE, game);
 	}
 	
-	public Scene initOverScene() {
+	public Scene initScene() {
     	Label indicator = new Label("Game Over\nScore: " + myGame.getScore());
     	indicator.setFont(new Font(20));
     	Button startButton = btnManager.initStartButton();

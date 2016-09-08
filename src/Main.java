@@ -88,7 +88,7 @@ public class Main extends Application {
     
     public void gameOver() {
     	soundManager.playDefeat();
-    	Scene overScene = new OverScene(btnManager, SIZE, myGame).initOverScene();
+    	Scene overScene = new OverScene(btnManager, SIZE, myGame).initScene();
     	stage.setScene(overScene);
     	clearGame();
     }
