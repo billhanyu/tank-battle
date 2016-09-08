@@ -7,7 +7,7 @@ import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ui.GameButtons;
+import ui.GameUI;
 import ui.LeadersScene;
 import ui.OverScene;
 import ui.SoundManager;
@@ -32,7 +32,7 @@ public class Main extends Application {
     private KeyFrame frame;
     private Timeline animation;
     
-    private GameButtons btnManager;
+    private GameUI uiManager;
     
     private SoundManager soundManager;
     
@@ -61,8 +61,8 @@ public class Main extends Application {
     public void start (Stage s) {
     	this.stage = s;
     	soundManager = new SoundManager();
-    	btnManager = new GameButtons(new GameStart(), new ShowLeaders(), new GameExit());
-    	Scene startScene = new StartScene(btnManager, SIZE).initScene();
+    	uiManager = new GameUI(new GameStart(), new ShowLeaders(), new GameExit());
+    	Scene startScene = new StartScene(uiManager, SIZE).initScene();
     	configureStage(startScene);
     	stage.show();
     }
@@ -71,7 +71,7 @@ public class Main extends Application {
     	// create your own game here
         myGame = new Game();
         stage.setTitle(myGame.getTitle());
-        btnManager.refreshGame();
+        uiManager.refreshGame();
 
         // attach game to the stage and display it
         Scene gameScene = myGame.init(SIZE, SIZE);
@@ -88,20 +88,20 @@ public class Main extends Application {
     
     public void gameWin() {
     	soundManager.playVictory();
-    	Scene winScene = new WinScene(btnManager, SIZE, myGame).initScene();
+    	Scene winScene = new WinScene(uiManager, SIZE, myGame).initScene();
     	stage.setScene(winScene);
     	clearGame();
     }
     
     public void gameOver() {
     	soundManager.playDefeat();
-    	Scene overScene = new OverScene(btnManager, SIZE, myGame).initScene();
+    	Scene overScene = new OverScene(uiManager, SIZE, myGame).initScene();
     	stage.setScene(overScene);
     	clearGame();
     }
     
     public void showLeaders() {
-    	Scene leadersScene = new LeadersScene(btnManager, SIZE, myGame).initScene();
+    	Scene leadersScene = new LeadersScene(uiManager, SIZE, myGame).initScene();
     	stage.setScene(leadersScene);
     }
     

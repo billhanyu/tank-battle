@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 
 public class WinScene extends GameScene {
 	
-	public WinScene(GameButtons manager, int SIZE, Game game) {
+	public WinScene(GameUI manager, int SIZE, Game game) {
 		super(manager, SIZE, game);
 	}
 	
@@ -21,14 +21,14 @@ public class WinScene extends GameScene {
     	int score = myGame.getScore();
     	Label indicator = new Label("You Won!\nScore: " + score);
     	root.getChildren().add(indicator);
-    	if (btnManager.getBoard().canGetOn(score)) {
-    		root.getChildren().add(btnManager.initNameInput(score));
+    	if (uiManager.getBoard().canGetOn(score)) {
+    		root.getChildren().add(uiManager.initNameInput(score));
     	}
     	indicator.setFont(new Font(20));
-    	Button startButton = btnManager.initStartButton();
-    	Button leadersButton = btnManager.initLeadersButton();
+    	Button startButton = uiManager.initStartButton();
+    	Button leadersButton = uiManager.initLeadersButton();
     	startButton.setText("Play Again");
-    	Button exitButton = btnManager.initExitButton();
+    	Button exitButton = uiManager.initExitButton();
     	
     	root.getChildren().addAll(startButton, leadersButton, exitButton);
     	Scene winScene = new Scene(root, SIZE, SIZE);

@@ -18,7 +18,7 @@ import leader.Leader;
 
 public class LeadersScene extends GameScene {
 	
-	public LeadersScene(GameButtons manager, int SIZE, Game game) {
+	public LeadersScene(GameUI manager, int SIZE, Game game) {
 		super(manager, SIZE, game);
 	}
 	
@@ -42,12 +42,12 @@ public class LeadersScene extends GameScene {
     private Node initLeadersView() {
     	VBox box = new VBox();
     	box.setPadding(new Insets(15, 12, 15, 12));
-        box.setSpacing(60);
+        box.setSpacing(40);
     	
-        ArrayList<Leader> leaders = btnManager.getBoard().getLeaders();
-        Button startButton = btnManager.initStartButton();
+        ArrayList<Leader> leaders = uiManager.getBoard().getLeaders();
+        Button startButton = uiManager.initStartButton();
         startButton.setText("Play Again");
-        Button exitButton = btnManager.initExitButton();
+        Button exitButton = uiManager.initExitButton();
         
         Node leadersBox = initLeadersBox(leaders);
     	box.getChildren().addAll(leadersBox, startButton, exitButton);

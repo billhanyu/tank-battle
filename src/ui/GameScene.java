@@ -3,16 +3,16 @@ import game.Game;
 import javafx.scene.Scene;
 
 public abstract class GameScene {
-	protected GameButtons btnManager;
+	protected GameUI uiManager;
 	protected final int SIZE;
 	protected Game myGame;
 	
-	public GameScene(GameButtons manager, int SIZE) {
-		btnManager = manager;
+	public GameScene(GameUI manager, int SIZE) {
+		uiManager = manager;
 		this.SIZE = SIZE;
 	}
 	
-	public GameScene(GameButtons manager, int SIZE, Game game) {
+	public GameScene(GameUI manager, int SIZE, Game game) {
 		this(manager, SIZE);
 		myGame = game;
 	}

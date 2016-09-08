@@ -13,7 +13,7 @@ import javafx.scene.text.TextAlignment;
 
 public class StartScene extends GameScene {
 	
-	public StartScene(GameButtons manager, int SIZE) {
+	public StartScene(GameUI manager, int SIZE) {
 		super(manager, SIZE);
 	}
 	
@@ -23,7 +23,7 @@ public class StartScene extends GameScene {
     	buttons.setPadding(new Insets(15, 12, 15, 12));
         buttons.setSpacing(100);
         
-        Button startButton = btnManager.initStartButton();
+        Button startButton = uiManager.initStartButton();
     	
     	Text text = new Text();
 		text.setFont(new Font(16));

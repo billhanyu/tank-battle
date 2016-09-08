@@ -11,14 +11,14 @@ import javafx.scene.layout.VBox;
 import leader.Leader;
 import leader.LeaderBoard;
 
-public class GameButtons {
+public class GameUI {
 	private EventHandler<ActionEvent> gameStart;
 	private EventHandler<ActionEvent> showLeaders;
 	private EventHandler<ActionEvent> gameExit;
 	private boolean didInputName;
 	private LeaderBoard board;
 	
-	public GameButtons(EventHandler<ActionEvent> start,
+	public GameUI(EventHandler<ActionEvent> start,
 			EventHandler<ActionEvent> leaders,
 			EventHandler<ActionEvent> exit) {
 		gameStart = start;
