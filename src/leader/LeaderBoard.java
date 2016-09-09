@@ -21,12 +21,7 @@ public class LeaderBoard {
 	 */
 	public LeaderBoard() {
 		ArrayList<Leader> lds = read();
-		if (lds != null) {
-			leaders = lds;
-		}
-		else {
-			leaders = new ArrayList<Leader>();
-		}
+		leaders = lds != null ? lds : new ArrayList<Leader>();
 	}
 
 	/**
@@ -45,6 +40,7 @@ public class LeaderBoard {
 	public void putOn(Leader l) {
 		leaders.add(l);
 		leaders.sort(null);
+		//truncate leaders
 		for (int i = SIZE; i < leaders.size(); i++) {
 			leaders.remove(i);
 		}
@@ -71,7 +67,6 @@ public class LeaderBoard {
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(leaders);
 			oos.close();
-
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
