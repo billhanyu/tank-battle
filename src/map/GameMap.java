@@ -1,7 +1,6 @@
 package map;
 import java.util.ArrayList;
 
-import game.Game;
 import sprite.Direction;
 import sprite.EnemyTank;
 import sprite.PlayerTank;
@@ -36,9 +35,9 @@ public class GameMap {
 	/**
 	 * construct the map
 	 */
-	public void buildMap() {
+	public void buildMap(int level) {
 		pad();
-		createMap();
+		createMap(level);
 	}
 	
 	/**
@@ -100,8 +99,8 @@ public class GameMap {
 		elements.add(padding);
 	}
 
-	private void createMap() {
-		currentMap = data.mapWithLevel(Game.currentLevel);
+	private void createMap(int level) {
+		currentMap = data.mapWithLevel(level);
 		addStable(currentMap.brickPos, Brick.class);
 		addStable(currentMap.stonePos, Stone.class);
 		addStable(currentMap.grassPos, Grass.class);

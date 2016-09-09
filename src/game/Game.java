@@ -29,7 +29,7 @@ enum Status {
 public class Game {
 	public static final String TITLE = "Fight for Your Home";
 	private Status status = Status.Wait;
-	public static int currentLevel = 0;
+	private int currentLevel = 0;
 
 	private static long toLoseTime = System.nanoTime();
 	private static final long LOSE_DELAY = 500 * 1000000;
@@ -50,12 +50,14 @@ public class Game {
 	private PlayerTank playerTank;
 	private Text livesHud;
 	private Text timeHud;
+	private Text levelHud;
 	private int width, height;
 
 	private GameMap map;
 	private int numLevels;
 
-	private static final long GAME_TIME = 30 * 1000000000L;
+	private static final long GAME_TIME_SECONDS = 3;
+	private static final long GAME_TIME = GAME_TIME_SECONDS * 1000000000L;
 	private long startTime = System.nanoTime();
 
 	private ArrayList<Sprite> elements = new ArrayList<Sprite>();
@@ -87,7 +89,6 @@ public class Game {
 		map = new GameMap(width, height);
 		map.init(elements);
 		numLevels = map.numLevels();
-
 		nextLevel();
 		
 		gc = initGraphicsContext(root);
@@ -102,13 +103,12 @@ public class Game {
 	 * game step
 	 */
 	public void step (double elapsedTime) {
-
 		if (lives <= 0 && status != Status.ToLose) {
 			setToLose();
 			return;
 		}
 		if (status == Status.Play && System.nanoTime() - startTime > GAME_TIME) {
-			if (currentLevel == numLevels - 1) {
+			if (currentLevel >= numLevels) {
 				status = Status.Win;
 				return;
 			}
@@ -118,7 +118,6 @@ public class Game {
 		}
 		if (status == Status.Between) {
 			if (System.nanoTime() - passLevelTime > LEVEL_DELAY) {
-				currentLevel++;
 				nextLevel();
 			}
 			return;
@@ -159,11 +158,16 @@ public class Game {
 	}
 
 	private void nextLevel() {
+		if (currentLevel >= numLevels) {
+			status = Status.Win;
+			return;
+		}
 		elements.removeAll(elements);
 		startTime = System.nanoTime();
-		map.buildMap();
+		map.buildMap(currentLevel);
 		playerTank = map.getPlayerTank();
 		status = Status.Play;
+		currentLevel++;
 	}
 
 	private void handleKeyInput (KeyCode code) {
@@ -200,6 +204,8 @@ public class Game {
 			break;
 		case L:
 			lives++;
+		case N:
+			nextLevel();
 		default:
 			break;
 		}
@@ -233,6 +239,7 @@ public class Game {
 	private void updateHud() {
 		updateLivesHud();
 		updateTimeHud();
+		updateLevelHud();
 	}
 	
 	private void updateLivesHud() {
@@ -240,7 +247,11 @@ public class Game {
 	}
 	
 	private void updateTimeHud() {
-		timeHud.setText("Time: " + (30 - (System.nanoTime() - startTime) / 1000000000L));
+		timeHud.setText("Time: " + (GAME_TIME_SECONDS - (System.nanoTime() - startTime) / 1000000000L));
+	}
+	
+	private void updateLevelHud() {
+		levelHud.setText("Level: " + currentLevel);
 	}
 
 	private GraphicsContext initGraphicsContext(BorderPane root) {
@@ -289,16 +300,21 @@ public class Game {
 	
 	private Node initHud() {
 		livesHud = new Text();
-		livesHud.setFont(new Font(20));
-		livesHud.setFill(Color.WHITE);
+		configureGameHud(livesHud);
 		timeHud = new Text();
-		timeHud.setFont(new Font(20));
-		timeHud.setFill(Color.WHITE);
+		configureGameHud(timeHud);
+		levelHud = new Text();
+		configureGameHud(levelHud);
 		HBox box = new HBox();
-		box.getChildren().addAll(livesHud, timeHud);
-		box.setSpacing(300);
+		box.getChildren().addAll(livesHud, timeHud, levelHud);
+		box.setSpacing(200);
 		BorderPane.setAlignment(box, Pos.CENTER);
 		return box;
+	}
+	
+	private void configureGameHud(Text hud) {
+		hud.setFont(new Font(20));
+		hud.setFill(Color.WHITE);
 	}
 
 	private void showScore() {
