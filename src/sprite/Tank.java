@@ -123,8 +123,14 @@ public abstract class Tank extends Sprite {
 		super.handleCollision(s);
 	}
 	
+	/**
+	 * @return missile BITMASK
+	 */
 	public abstract int getMissileMask();
 	
+	/**
+	 * set green color
+	 */
 	public void setGreen() {
 		TANK_UP = GREEN_TANK_UP;
 		TANK_DOWN = GREEN_TANK_DOWN;
@@ -132,6 +138,9 @@ public abstract class Tank extends Sprite {
 		TANK_RIGHT = GREEN_TANK_RIGHT;
 	}
 	
+	/**
+	 * set red color
+	 */
 	public void setRed() {
 		TANK_UP = RED_TANK_UP;
 		TANK_DOWN = RED_TANK_DOWN;
@@ -139,6 +148,9 @@ public abstract class Tank extends Sprite {
 		TANK_RIGHT = RED_TANK_RIGHT;
 	}
 	
+	/**
+	 * set yellow color
+	 */
 	public void setYellow() {
 		TANK_UP = YELLOW_TANK_UP;
 		TANK_DOWN = YELLOW_TANK_DOWN;
@@ -146,6 +158,9 @@ public abstract class Tank extends Sprite {
 		TANK_RIGHT = YELLOW_TANK_RIGHT;
 	}
 	
+	/**
+	 * set white color
+	 */
 	public void setWhite() {
 		TANK_UP = WHITE_TANK_UP;
 		TANK_DOWN = WHITE_TANK_DOWN;
@@ -153,6 +168,9 @@ public abstract class Tank extends Sprite {
 		TANK_RIGHT = WHITE_TANK_RIGHT;
 	}
 	
+	/**
+	 * @return moving direction of the tank
+	 */
 	public Direction getDirection() {
 		return direction;
 	}

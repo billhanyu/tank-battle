@@ -33,9 +33,45 @@ public class GameMap {
 		data = new MapData();
 	}
 	
+	/**
+	 * construct the map
+	 */
 	public void buildMap() {
 		pad();
 		createMap();
+	}
+	
+	/**
+	 * spawn enemy tanks randomly
+	 */
+	public void spawnTank() {
+		for (int[] pos: currentMap.tankPos) {
+			if (Math.random() < SPAWN_POS) {
+				EnemyTank tank = new EnemyTank(elements);
+				tank.setPosition(pos[0], pos[1]);
+				boolean valid = true;
+				for (Sprite e: elements) {
+					if (tank.intersects(e)) {
+						valid = false;
+					}
+				}
+				if (valid) {
+					tank.setDirection(Direction.DOWN);
+					elements.add(tank);
+				}
+			}
+		}
+	}
+
+	public PlayerTank getPlayerTank() {
+		return playerTank;
+	}
+
+	public PlayerTank revivePlayerTank() {
+		playerTank = new PlayerTank(elements);
+		playerTank.setPosition(currentMap.playerPos[0], currentMap.playerPos[1]);
+		elements.add(playerTank);
+		return playerTank;
 	}
 
 	private void pad() {
@@ -90,10 +126,8 @@ public class GameMap {
 					try {
 						e = (Stable) cls.newInstance();
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					e.setPosition(p, q);
@@ -107,35 +141,5 @@ public class GameMap {
 		Home home = new Home();
 		home.setPosition(currentMap.homePos[0], currentMap.homePos[1]);
 		elements.add(home);
-	}
-
-	public void spawnTank() {
-		for (int[] pos: currentMap.tankPos) {
-			if (Math.random() < SPAWN_POS) {
-				EnemyTank tank = new EnemyTank(elements);
-				tank.setPosition(pos[0], pos[1]);
-				boolean valid = true;
-				for (Sprite e: elements) {
-					if (tank.intersects(e)) {
-						valid = false;
-					}
-				}
-				if (valid) {
-					tank.setDirection(Direction.DOWN);
-					elements.add(tank);
-				}
-			}
-		}
-	}
-
-	public PlayerTank getPlayerTank() {
-		return playerTank;
-	}
-
-	public PlayerTank revivePlayerTank() {
-		playerTank = new PlayerTank(elements);
-		playerTank.setPosition(currentMap.playerPos[0], currentMap.playerPos[1]);
-		elements.add(playerTank);
-		return playerTank;
 	}
 }

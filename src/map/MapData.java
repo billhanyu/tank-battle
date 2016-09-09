@@ -1,6 +1,11 @@
 package map;
 import java.util.ArrayList;
 
+/**
+ * @author billyu
+ * stores the map data in code
+ * in the future could read from file
+ */
 public class MapData {
 	
 	private ArrayList<Map> maps;
@@ -10,14 +15,24 @@ public class MapData {
 		initMapData();
 	}
 	
+	/**
+	 * @return the number of levels according to map data
+	 */
 	public int numLevels() {
 		return maps.size();
 	}
 	
+	/**
+	 * @param level the level of the map requested
+	 * @return a map corresponding to the level
+	 */
 	public Map mapWithLevel(int level) {
 		return maps.get(level);
 	}
 
+	/**
+	 * read map data from code
+	 */
 	private void initMapData() {
 		Map map1 = new Map(tankPos1, brickPos1, stonePos1, waterPos1, grassPos1, homePos1, playerPos1);
 		Map map2 = new Map(tankPos2, brickPos2, stonePos2, waterPos2, grassPos2, homePos2, playerPos2);

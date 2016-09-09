@@ -28,10 +28,16 @@ public class GameUI {
 		setBoard(new LeaderBoard());
 	}
 	
+	/**
+	 * refresh the states
+	 */
 	public void refreshGame() {
 		didInputName = false;
 	}
 
+	/**
+	 * @return button for game start
+	 */
 	public Button initStartButton() {
 		Button startButton = new Button("Start Game");
 		startButton.setPrefWidth(120);
@@ -39,6 +45,9 @@ public class GameUI {
 		return startButton;
 	}
 
+	/**
+	 * @return button for displaying leader board
+	 */
 	public Button initLeadersButton() {
 		Button leadersButton = new Button("Leader Board");
 		leadersButton.setPrefWidth(120);
@@ -46,6 +55,9 @@ public class GameUI {
 		return leadersButton;
 	}
 
+	/**
+	 * @return button to quit game
+	 */
 	public Button initExitButton() {
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefWidth(120);
@@ -53,6 +65,10 @@ public class GameUI {
 		return exitButton;
 	}
 	
+	/**
+	 * @param score player's score after the game finishes
+	 * @return a UI element that let the player input the name
+	 */
 	public VBox initNameInput(int score) {
     	VBox whole = new VBox();
     	whole.setAlignment(Pos.CENTER);
@@ -83,10 +99,16 @@ public class GameUI {
     	return whole;
     }
 
+	/**
+	 * @return the leader board object
+	 */
 	public LeaderBoard getBoard() {
 		return board;
 	}
 
+	/**
+	 * @param board leader board object
+	 */
 	private void setBoard(LeaderBoard board) {
 		this.board = board;
 	}

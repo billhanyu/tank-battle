@@ -98,20 +98,6 @@ public class Game {
 		return myScene;
 	}
 
-	private Node initHud() {
-		livesHud = new Text();
-		livesHud.setFont(new Font(20));
-		livesHud.setFill(Color.WHITE);
-		timeHud = new Text();
-		timeHud.setFont(new Font(20));
-		timeHud.setFill(Color.WHITE);
-		HBox box = new HBox();
-		box.getChildren().addAll(livesHud, timeHud);
-		box.setSpacing(300);
-		BorderPane.setAlignment(box, Pos.CENTER);
-		return box;
-	}
-
 	/**
 	 * game step
 	 */
@@ -148,6 +134,28 @@ public class Game {
 		renderElements();
 		updateHud();
 		map.spawnTank();
+	}
+	
+	/**
+	 * set the game status to ToLose
+	 */
+	public void setToLose() {
+		status = Status.ToLose;
+		toLoseTime = System.nanoTime();
+	}
+	
+	/**
+	 * @return current status of the game
+	 */
+	public Status getStatus() {
+		return status;
+	}
+
+	/**
+	 * @return player's score of the game
+	 */
+	public int getScore() {
+		return score;
 	}
 
 	private void nextLevel() {
@@ -278,18 +286,19 @@ public class Game {
 			}
 		}
 	}
-
-	public void setToLose() {
-		status = Status.ToLose;
-		toLoseTime = System.nanoTime();
-	}
 	
-	public Status getStatus() {
-		return status;
-	}
-
-	public int getScore() {
-		return score;
+	private Node initHud() {
+		livesHud = new Text();
+		livesHud.setFont(new Font(20));
+		livesHud.setFill(Color.WHITE);
+		timeHud = new Text();
+		timeHud.setFont(new Font(20));
+		timeHud.setFill(Color.WHITE);
+		HBox box = new HBox();
+		box.getChildren().addAll(livesHud, timeHud);
+		box.setSpacing(300);
+		BorderPane.setAlignment(box, Pos.CENTER);
+		return box;
 	}
 
 	private void showScore() {

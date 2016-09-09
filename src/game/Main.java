@@ -36,6 +36,7 @@ public class Main extends Application {
     
     private SoundManager soundManager;
     
+    
     class GameStart implements EventHandler<ActionEvent> {
     	public void handle(ActionEvent event) {
 			gameStart();
@@ -67,6 +68,9 @@ public class Main extends Application {
     	stage.show();
     }
     
+    /**
+     * start the game play
+     */
     private void gameStart() {
     	// create your own game here
         myGame = new Game();
@@ -86,6 +90,9 @@ public class Main extends Application {
         animation.play();
     }
     
+    /**
+     * the player wins
+     */
     public void gameWin() {
     	soundManager.playVictory();
     	Scene winScene = new WinScene(uiManager, SIZE, myGame).initScene();
@@ -93,6 +100,9 @@ public class Main extends Application {
     	clearGame();
     }
     
+    /**
+     * set the scene with game over scene
+     */
     public void gameOver() {
     	soundManager.playDefeat();
     	Scene overScene = new OverScene(uiManager, SIZE, myGame).initScene();
@@ -100,11 +110,18 @@ public class Main extends Application {
     	clearGame();
     }
     
+    /**
+     * set the stage with leaders scene
+     */
     public void showLeaders() {
     	Scene leadersScene = new LeadersScene(uiManager, SIZE, myGame).initScene();
     	stage.setScene(leadersScene);
     }
     
+    /**
+     * check the game status and let the game run
+     * @param elapsedTime time passed
+     */
     private void step(double elapsedTime) {
     	switch (myGame.getStatus()) {
     		case Lost:
@@ -119,12 +136,19 @@ public class Main extends Application {
     	myGame.step(elapsedTime);
     }
     
+    /**
+     * show the stage the first time
+     * @param startScene the first scene that welcomes players
+     */
     private void configureStage(Scene startScene) {
     	stage.setTitle("Tank Battle");
     	stage.setScene(startScene);
     	stage.setResizable(false);
     }
     
+    /**
+     * clear the game instance and stop animation
+     */
     private void clearGame() {
     	myGame = null;
     	frame = null;

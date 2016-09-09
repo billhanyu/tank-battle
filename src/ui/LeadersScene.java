@@ -39,6 +39,9 @@ public class LeadersScene extends GameScene {
     	return scn;
     }
     
+    /**
+     * @return leader board ui element
+     */
     private Node initLeadersView() {
     	VBox box = new VBox();
     	box.setPadding(new Insets(15, 12, 15, 12));
@@ -55,6 +58,10 @@ public class LeadersScene extends GameScene {
     	return box;
     }
 
+	/**
+	 * @param leaders arraylist of leaders from LeaderBoard
+	 * @return the leader board content
+	 */
 	private HBox initLeadersBox(ArrayList<Leader> leaders) {
 		HBox leadersBox = new HBox();
         leadersBox.setPadding(new Insets(15, 12, 15, 12));

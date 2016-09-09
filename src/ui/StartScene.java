@@ -17,6 +17,9 @@ public class StartScene extends GameScene {
 		super(manager, SIZE);
 	}
 	
+	/**
+	 * @return the set of buttons on the start scene
+	 */
 	private Node initStartViewButtons() {
     	VBox buttons = new VBox();
     	
@@ -37,6 +40,9 @@ public class StartScene extends GameScene {
     	return buttons;
     }
     
+    /**
+     * @return the title label on the start scene
+     */
     private Label initTitle() {
     	Label title = new Label("Tank Battle");
     	title.setFont(new Font(20));

@@ -83,6 +83,10 @@ public abstract class Sprite implements Comparable<Sprite> {
         return s.getRect().intersects(this.getRect());
     }
     
+    /**
+     * @param s another sprite collided
+     * handle collision with another sprite
+     */
     public void handleCollision(Sprite s) {
     	dealWithCollision(s);
     	if (health <= 0) {
@@ -90,8 +94,15 @@ public abstract class Sprite implements Comparable<Sprite> {
     	}
     }
     
+    /**
+     * @param s another sprite collided
+     * function to be overridden
+     */
     protected abstract void dealWithCollision(Sprite s);
     
+    /**
+     * @return if the sprite is alive
+     */
     public boolean isAlive() {
     	return alive;
     }
@@ -113,6 +124,9 @@ public abstract class Sprite implements Comparable<Sprite> {
 		return 0;
 	}
 
+	/**
+	 * @return bitmask of the sprite
+	 */
 	public int getBITMASK() {
 		return BITMASK;
 	}

@@ -17,5 +17,8 @@ public abstract class GameScene {
 		myGame = game;
 	}
 	
+	/**
+	 * @return the scene of the class
+	 */
 	public abstract Scene initScene();
 }

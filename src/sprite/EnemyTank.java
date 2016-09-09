@@ -15,6 +15,10 @@ public class EnemyTank extends Tank {
 		SPEED = 50;
 	}
 	
+	/* 
+	 * change direction at random
+	 * fire missile at random
+	 */
 	public void update(double time) {
 		super.update(time);
 		attemptChangeDirection();
