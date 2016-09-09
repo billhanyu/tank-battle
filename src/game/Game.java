@@ -1,20 +1,18 @@
 package game;
 import java.util.ArrayList;
 
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import map.GameMap;
 import sprite.Direction;
 import sprite.PlayerTank;
 import sprite.Sprite;
 import stable.Home;
+import ui.GameHud;
 
 /**
  * Separate the game code from some of the boilerplate code.
@@ -48,15 +46,13 @@ public class Game {
 	private Scene myScene;
 	private GraphicsContext gc;
 	private PlayerTank playerTank;
-	private Text livesHud;
-	private Text timeHud;
-	private Text levelHud;
 	private int width, height;
 
 	private GameMap map;
 	private int numLevels;
+	private GameHud hudManager;
 
-	private static final long GAME_TIME_SECONDS = 3;
+	public static final long GAME_TIME_SECONDS = 3;
 	private static final long GAME_TIME = GAME_TIME_SECONDS * 1000000000L;
 	private long startTime = System.nanoTime();
 
@@ -81,10 +77,12 @@ public class Game {
 		lives = INITIAL_LIVES;
 		score = 0;
 		currentLevel = 0;
+		
+		hudManager = new GameHud(this);
 
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: black;");
-		root.setTop(initHud());
+		root.setTop(hudManager.initHud());
 
 		map = new GameMap(width, height);
 		map.init(elements);
@@ -93,7 +91,7 @@ public class Game {
 		
 		gc = initGraphicsContext(root);
 
-		myScene = new Scene(root, width, height + livesHud.getLayoutBounds().getHeight(), Color.BLACK);
+		myScene = new Scene(root, width, height + hudManager.getHeight(), Color.BLACK);
 		// Respond to input
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return myScene;
@@ -131,7 +129,7 @@ public class Game {
 		updateElements(elapsedTime);
 		detectCollisions();
 		renderElements();
-		updateHud();
+		hudManager.updateHud();
 		map.spawnTank();
 	}
 	
@@ -235,23 +233,17 @@ public class Game {
 			}
 		}
 	}
-
-	private void updateHud() {
-		updateLivesHud();
-		updateTimeHud();
-		updateLevelHud();
+	
+	public int getCurrentLevel() {
+		return currentLevel;
 	}
 	
-	private void updateLivesHud() {
-		livesHud.setText(String.format("Lives: %d", lives));
+	public long getStartTime() {
+		return startTime;
 	}
 	
-	private void updateTimeHud() {
-		timeHud.setText("Time: " + (GAME_TIME_SECONDS - (System.nanoTime() - startTime) / 1000000000L));
-	}
-	
-	private void updateLevelHud() {
-		levelHud.setText("Level: " + currentLevel);
+	public int getLives() {
+		return lives;
 	}
 
 	private GraphicsContext initGraphicsContext(BorderPane root) {
@@ -296,25 +288,6 @@ public class Game {
 				}
 			}
 		}
-	}
-	
-	private Node initHud() {
-		livesHud = new Text();
-		configureGameHud(livesHud);
-		timeHud = new Text();
-		configureGameHud(timeHud);
-		levelHud = new Text();
-		configureGameHud(levelHud);
-		HBox box = new HBox();
-		box.getChildren().addAll(livesHud, timeHud, levelHud);
-		box.setSpacing(200);
-		BorderPane.setAlignment(box, Pos.CENTER);
-		return box;
-	}
-	
-	private void configureGameHud(Text hud) {
-		hud.setFont(new Font(20));
-		hud.setFill(Color.WHITE);
 	}
 
 	private void showScore() {
