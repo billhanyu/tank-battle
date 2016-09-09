@@ -13,7 +13,7 @@ import stable.Stone;
 import stable.Water;
 
 public class GameMap {
-	private static final double SPAWN_POS = 0.005;
+	private static final double SPAWN_POS = 0.0025;
 	protected static final int unitSize = 20;
 
 	private int width, height;

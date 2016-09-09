@@ -52,7 +52,7 @@ public class Game {
 	private int numLevels;
 	private GameHud hudManager;
 
-	public static final long GAME_TIME_SECONDS = 3;
+	public static final long GAME_TIME_SECONDS = 60;
 	private static final long GAME_TIME = GAME_TIME_SECONDS * 1000000000L;
 	private long startTime = System.nanoTime();
 

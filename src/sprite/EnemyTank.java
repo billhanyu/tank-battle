@@ -7,12 +7,12 @@ public class EnemyTank extends Tank {
 	
 	private long lastChangeDirection = System.nanoTime();
 	private static final long DIRECTION_DELAY = 500000000;
-	private static final double DIRECTION_CHANGE_POS = 0.01;
-	private static final double FIRE_MISSILE_POS = 0.01;
+	private static final double DIRECTION_CHANGE_POS = 0.02;
+	private static final double FIRE_MISSILE_POS = 0.02;
 	
 	public EnemyTank(ArrayList<Sprite> elements) {
 		super(elements);
-		SPEED = 50;
+		SPEED = 100;
 	}
 	
 	/* 

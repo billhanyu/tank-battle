@@ -8,7 +8,7 @@ public class Leader implements Comparable<Leader>, Serializable {
 	private int score;
 	
 	public Leader(String name, int score) {
-		this.setName(name);
+		this.setName(name.trim());
 		this.setScore(score);
 	}
 	
