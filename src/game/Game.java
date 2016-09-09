@@ -25,14 +25,14 @@ enum Status {
 }
 
 public class Game {
-	public static final String TITLE = "Fight for Your Home";
+	private static final String TITLE = "Fight for Your Home";
 	private Status status = Status.Wait;
 	private int currentLevel = 0;
 
 	private static long toLoseTime = System.nanoTime();
 	private static final long LOSE_DELAY = 500 * 1000000;
 
-	public long deadTime = System.nanoTime();
+	private long deadTime = System.nanoTime();
 	private static final long DIE_DELAY = 1 * 1000000000L;
 
 	private long passLevelTime = System.nanoTime();
@@ -155,6 +155,10 @@ public class Game {
 		return score;
 	}
 
+	/**
+	 * present the map of the next level
+	 * if there is no next, game won
+	 */
 	private void nextLevel() {
 		if (currentLevel >= numLevels) {
 			status = Status.Win;
@@ -168,6 +172,10 @@ public class Game {
 		currentLevel++;
 	}
 
+	/**
+	 * @param code key pressed on keyboard
+	 * controls and cheats
+	 */
 	private void handleKeyInput (KeyCode code) {
 		if (System.nanoTime() - deadTime < DIE_DELAY) {
 			return;
@@ -209,6 +217,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * double for loop to detect any collision
+	 */
 	private void detectCollisions() {
 		for (int i = 0; i < elements.size(); i++) {
 			for (int j = i + 1; j < elements.size(); j++) {
@@ -223,6 +234,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * cheat: clear all enemy tanks currently on map
+	 */
 	public void clearEnemies() {
 		for (int i = 0; i < elements.size(); i++) {
 			Sprite e = elements.get(i);
@@ -234,14 +248,23 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * @return current level of the game
+	 */
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
 	
+	/**
+	 * @return the start time of current level
+	 */
 	public long getStartTime() {
 		return startTime;
 	}
 	
+	/**
+	 * @return lives remaining of the player
+	 */
 	public int getLives() {
 		return lives;
 	}
