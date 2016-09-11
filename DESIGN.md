@@ -19,3 +19,9 @@ The levels differ mainly by the maps. In harder levels, the home would be more e
 Cheats:
 B - becomes immortal for 5 seconds.
 C - eliminate all enemy tanks on the map.
+L - add one more life to player's tank.
+N - skip to next level.
+
+How to add new features
+
+Major design choices:

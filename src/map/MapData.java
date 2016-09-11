@@ -55,7 +55,6 @@ public class MapData {
 		};
 	private static final int[][] stonePos1 = 
 		{
-				{200, 400, 40, 20}, {440, 400, 40, 20}
 		};
 	private static final int[][] waterPos1 = 
 		{
