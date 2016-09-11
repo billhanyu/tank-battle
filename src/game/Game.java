@@ -180,11 +180,10 @@ public class Game {
 		if (System.nanoTime() - deadTime < DIE_DELAY) {
 			return;
 		}
-		if (code == KeyCode.SPACE) {
-			playerTank.fireMissile();
-			return;
-		}
 		switch (code) {
+		case SPACE:
+			playerTank.fireMissile();
+			break;
 		case RIGHT:
 		case D:
 			playerTank.setDirection(Direction.RIGHT);
@@ -210,8 +209,10 @@ public class Game {
 			break;
 		case L:
 			lives++;
+			break;
 		case N:
 			nextLevel();
+			break;
 		default:
 			break;
 		}
