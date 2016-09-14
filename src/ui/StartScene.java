@@ -11,6 +11,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * @author billyu
+ * welcome scene of the game
+ */
 public class StartScene extends GameScene {
 	
 	public StartScene(GameUI manager, int SIZE) {

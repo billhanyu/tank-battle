@@ -12,6 +12,12 @@ import stable.Stable;
 import stable.Stone;
 import stable.Water;
 
+/**
+ * @author billyu
+ * game map generator
+ * reads data from MapData
+ * assumes each map contains info of brick, stone, water, grass, player pos, enemy pos
+ */
 public class GameMap {
 	private static final double SPAWN_POS = 0.0025;
 	protected static final int unitSize = 20;

@@ -6,6 +6,10 @@ import javafx.scene.canvas.GraphicsContext;
 
 import javafx.geometry.Rectangle2D;
 
+/**
+ * @author billyu
+ * essential class for object movements and collision
+ */
 public abstract class Sprite implements Comparable<Sprite> {
     private Image image;
     protected double positionX;

@@ -2,6 +2,10 @@ package stable;
 
 import sprite.Sprite;
 
+/**
+ * @author billyu
+ * cannot be destroyed whatsoever
+ */
 public final class Stone extends Stable {
 	
 	public Stone() {

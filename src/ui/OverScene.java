@@ -7,6 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * @author billyu
+ * game over scene
+ */
 public class OverScene extends GameScene {
 	
 	public OverScene(GameUI manager, int SIZE, Game game) {

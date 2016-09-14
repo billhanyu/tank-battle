@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 import game.Game;
 
+/**
+ * @author billyu
+ * enemy tank actions
+ * fire missile and change direction randomly
+ */
 public class EnemyTank extends Tank {
 	
 	private long lastChangeDirection = System.nanoTime();

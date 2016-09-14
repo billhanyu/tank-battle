@@ -16,6 +16,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import leader.Leader;
 
+/**
+ * @author billyu
+ * scene to display the leader board
+ */
 public class LeadersScene extends GameScene {
 	
 	public LeadersScene(GameUI manager, int SIZE, Game game) {

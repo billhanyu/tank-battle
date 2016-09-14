@@ -1,6 +1,10 @@
 package leader;
 import java.io.Serializable;
 
+/**
+ * @author billyu
+ * player on the leader board
+ */
 public class Leader implements Comparable<Leader>, Serializable {
 	private static final long serialVersionUID = 1L;
 	

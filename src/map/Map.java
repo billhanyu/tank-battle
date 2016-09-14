@@ -1,4 +1,9 @@
 package map;
+
+/**
+ * @author billyu
+ * hold data for map
+ */
 public class Map {
 	public int[][] tankPos, brickPos, stonePos, waterPos, grassPos;
 	public int[] homePos, playerPos;

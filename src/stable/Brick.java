@@ -3,6 +3,11 @@ package stable;
 import game.Game;
 import sprite.Sprite;
 
+/**
+ * @author billyu
+ * brick
+ * can be destroyed by missile
+ */
 public final class Brick extends Stable {
 	
 	public Brick() {

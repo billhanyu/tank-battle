@@ -7,6 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * @author billyu
+ * scene to let the players know they won
+ */
 public class WinScene extends GameScene {
 	
 	public WinScene(GameUI manager, int SIZE, Game game) {

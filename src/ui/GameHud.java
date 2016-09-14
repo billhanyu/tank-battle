@@ -9,6 +9,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * @author billyu
+ * in game info display
+ */
 public class GameHud {
 	private Text timeHud;
 	private Text livesHud;

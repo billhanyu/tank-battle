@@ -6,6 +6,11 @@ import game.Game;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * @author billyu
+ * controlled by the player
+ * fire missile, move around and benefit from buffs
+ */
 public class PlayerTank extends Tank {
 	
 	private static final long IMMORTAL_DELAY = 5000*1000*100;

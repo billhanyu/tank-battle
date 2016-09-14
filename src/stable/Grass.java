@@ -2,6 +2,10 @@ package stable;
 
 import sprite.Sprite;
 
+/**
+ * @author billyu
+ * tanks/missiles can hide under grass
+ */
 public class Grass extends Stable {
 	
 	public Grass() {

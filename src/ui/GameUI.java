@@ -11,6 +11,10 @@ import javafx.scene.layout.VBox;
 import leader.Leader;
 import leader.LeaderBoard;
 
+/**
+ * @author billyu
+ * common buttons reused across scenes
+ */
 public class GameUI {
 	private EventHandler<ActionEvent> gameStart;
 	private EventHandler<ActionEvent> showLeaders;

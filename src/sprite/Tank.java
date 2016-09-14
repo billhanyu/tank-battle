@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import game.Game;
 import stable.Grass;
 
+/**
+ * @author billyu
+ * tank appearance and actions
+ */
 public abstract class Tank extends Sprite {
 	
 	private static final long MISSILE_DELAY = 500000000;

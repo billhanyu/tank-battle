@@ -2,6 +2,10 @@ package ui;
 import game.Game;
 import javafx.scene.Scene;
 
+/**
+ * @author billyu
+ * generate scene needed
+ */
 public abstract class GameScene {
 	protected GameUI uiManager;
 	protected final int SIZE;

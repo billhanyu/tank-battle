@@ -4,6 +4,10 @@ import java.nio.file.Paths;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * @author billyu
+ * manager to play sound in the game
+ */
 public class SoundManager {
 	
 	/**
