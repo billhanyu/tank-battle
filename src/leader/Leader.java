@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Bill Yu
+
 package leader;
 import java.io.Serializable;
 
