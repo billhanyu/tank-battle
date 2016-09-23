@@ -24,6 +24,7 @@ Information about using the program: N/A
 Known bugs: very rarely, JVM crashes after the game ends
 
 Extra features: cheat keys
+
 1. L - add one more life to player's tank
 2. C - clear all enemy tanks currently on map
 3. N - skip to next level
